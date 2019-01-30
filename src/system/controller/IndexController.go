@@ -5,5 +5,6 @@ import (
 )
 
 type IndexController struct {
-	traits.GetResponse
+	traits.GetOperate
+	traits.AddOperate
 }

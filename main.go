@@ -9,7 +9,7 @@ import (
 func main() {
 	app := iris.New()
 	mvc.Configure(app.Party("system"), router.System)
-	if e := app.Run(iris.Addr(":7001")); e != nil {
+	if e := app.Run(iris.Addr(":3000")); e != nil {
 		print(e.Error())
 	}
 }
