@@ -7,7 +7,7 @@ import (
 
 type EditOperate struct{}
 
-func (r *EditOperate) PostEdit() mvc.Result {
+func (r *EditOperate) EditOperateHandle() mvc.Result {
 	return mvc.Response{
 		Object: iris.Map{"error": 0},
 	}

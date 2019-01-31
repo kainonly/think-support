@@ -7,7 +7,7 @@ import (
 
 type GetOperate struct{}
 
-func (r *GetOperate) PostGet() mvc.Result {
+func (r *GetOperate) GetOperateHandle() mvc.Result {
 	return mvc.Response{
 		Object: iris.Map{"error": 0},
 	}

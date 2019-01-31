@@ -7,7 +7,7 @@ import (
 
 type OriginListsOperate struct{}
 
-func (r *OriginListsOperate) PostOriginLists() mvc.Result {
+func (r *OriginListsOperate) OriginListsOperateHandle() mvc.Result {
 	return mvc.Response{
 		Object: iris.Map{"error": 0},
 	}

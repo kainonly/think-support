@@ -7,7 +7,7 @@ import (
 
 type DeleteOperate struct{}
 
-func (r *DeleteOperate) PostDelete() mvc.Result {
+func (r *DeleteOperate) DeleteOperateHandle() mvc.Result {
 	return mvc.Response{
 		Object: iris.Map{"error": 0},
 	}
