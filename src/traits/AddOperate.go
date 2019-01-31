@@ -7,7 +7,7 @@ import (
 
 type AddOperate struct{}
 
-func (r *AddOperate) PostAdd() mvc.Result {
+func (r *AddOperate) AddOperateHandler() mvc.Result {
 	return mvc.Response{
 		Object: iris.Map{"error": 0},
 	}

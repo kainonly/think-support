@@ -7,7 +7,7 @@ import (
 
 type ListsOperate struct{}
 
-func (r *ListsOperate) PostLists() mvc.Result {
+func (r *ListsOperate) ListsOperateHandle() mvc.Result {
 	return mvc.Response{
 		Object: iris.Map{"error": 0},
 	}
