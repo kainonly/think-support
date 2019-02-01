@@ -6,14 +6,20 @@ import (
 
 type Base struct {
 	Model   string
-	Operate struct {
-		Get         bool
-		OriginLists bool
-		Lists       bool
-		Add         bool
-		Edit        bool
-		Delete      bool
-	}
+	Operate _Operate
+}
+
+type _Operate struct {
+	Get         bool
+	OriginLists bool
+	Lists       bool
+	Add         bool
+	Edit        bool
+	Delete      bool
+}
+
+func (c *Base) SetOperate(operate _Operate) {
+	c.Operate = operate
 }
 
 func (c *Base) BeforeActivation(b mvc.BeforeActivation) {
