@@ -1,6 +1,7 @@
 package traits
 
 import (
+	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
 )
 
@@ -60,4 +61,18 @@ func (c *Traits) BeforeActivation(b mvc.BeforeActivation) {
 	if c.delete {
 		b.Router().Post("/"+c.M+"/delete", c.deleteModel)
 	}
+}
+
+func (c *Traits) Success(ctx iris.Context, msg string) {
+	ctx.JSON(iris.Map{
+		"error": false,
+		"msg":   msg,
+	})
+}
+
+func (c *Traits) Failed(ctx iris.Context, msg string) {
+	ctx.JSON(iris.Map{
+		"error": true,
+		"msg":   msg,
+	})
 }
