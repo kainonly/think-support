@@ -49,23 +49,22 @@ func (c *Traits) Curd(get bool, originLists bool, lists bool, add bool, edit boo
 }
 
 func (c *Traits) BeforeActivation(b mvc.BeforeActivation) {
-	method := "POST"
 	if c.get {
-		b.Handle(method, "/"+c.Model+"/get", "GetModel")
+		b.Router().Post("/"+c.Model+"/get", c.getModel)
 	}
 	if c.originLists {
-		b.Handle(method, "/"+c.Model+"/originLists", "OriginListsModel")
+		b.Router().Post("/"+c.Model+"/originLists", c.originListsModel)
 	}
 	if c.lists {
-		b.Handle(method, "/"+c.Model+"/lists", "ListsModel")
+		b.Router().Post("/"+c.Model+"/lists", c.listsModel)
 	}
 	if c.add {
-		b.Handle(method, "/"+c.Model+"/add", "AddModel")
+		b.Router().Post("/"+c.Model+"/add", c.addModel)
 	}
 	if c.edit {
-		b.Handle(method, "/"+c.Model+"/edit", "EditModel")
+		b.Router().Post("/"+c.Model+"/edit", c.editModel)
 	}
 	if c.delete {
-		b.Handle(method, "/"+c.Model+"/delete", "DeleteModel")
+		b.Router().Post("/"+c.Model+"/delete", c.deleteModel)
 	}
 }
