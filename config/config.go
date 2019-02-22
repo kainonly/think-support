@@ -1,22 +1,20 @@
-package cogs
+package config
 
 import (
 	"context"
+	"github.com/go-ini/ini"
 	"github.com/kainonly/iris-bit/facade"
 	"github.com/mongodb/mongo-go-driver/mongo"
 	"time"
 )
 
 type (
-	Cogs struct {
-		Mongodb mongodb `ini:"mongodb"`
+	Config struct {
+		Mongodb `ini:"mongodb"`
 	}
 
-	mongodb struct {
-		Hostname string `ini:"hostname"`
-		Port     string `ini:"port"`
-		Username string `ini:"username"`
-		Password string `ini:"password"`
+	Mongodb struct {
+		Uri      string `ini:"uri"`
 		Database string `ini:"database"`
 	}
 )
@@ -26,14 +24,16 @@ var (
 	mgo *mongo.Client
 )
 
-func (c *Cogs) RegisteredMongo() error {
-	dsn := "mongodb://" +
-		c.Mongodb.Username + ":" +
-		c.Mongodb.Password + "@" +
-		c.Mongodb.Hostname + ":" +
-		c.Mongodb.Port
+func Set(path string) *Config {
+	config := new(Config)
+	if err = ini.MapTo(config, path); err != nil {
+		panic(err.Error())
+	}
+	return config
+}
 
-	if mgo, err = mongo.NewClient(dsn); err != nil {
+func (c *Config) RegisteredMongo() error {
+	if mgo, err = mongo.NewClient(c.Mongodb.Uri); err != nil {
 		return err
 	}
 
