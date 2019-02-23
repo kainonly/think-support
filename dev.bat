@@ -1,0 +1,1 @@
+rizla ./example/main.go
