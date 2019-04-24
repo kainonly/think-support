@@ -1,6 +1,6 @@
 <?php
 
-namespace cmq\sdk\param;
+namespace cmq\sdk\queue;
 
 final class SendMessage extends Common
 {
@@ -32,6 +32,7 @@ final class SendMessage extends Common
      */
     public function __construct($queueName, $msgBody, $delaySeconds = 0)
     {
+        parent::__construct();
         $this->queueName = $queueName;
         $this->msgBody = is_array($msgBody) ? json_encode($msgBody) : (string)$msgBody;
         $this->delaySeconds = $delaySeconds;

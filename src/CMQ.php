@@ -2,7 +2,7 @@
 
 namespace cmq\sdk;
 
-use cmq\sdk\param\SendMessage;
+use cmq\sdk\queue\SendMessage;
 
 final class CMQ
 {
@@ -15,7 +15,7 @@ final class CMQ
     public static function SendMessage($queueName, $msgBody, $delaySeconds = 0)
     {
         $httpClient = new HttpClient();
-        $queue = new SendMessage($queueName, $msgBody, $delaySeconds);
+        $action = new SendMessage($queueName, $msgBody, $delaySeconds);
     }
 
 }
