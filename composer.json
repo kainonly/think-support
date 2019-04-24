@@ -1,11 +1,18 @@
 {
-    "name": "kain/cmq-sdk",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "kain",
-            "email": "zhangtqx@vip.qq.com"
-        }
-    ],
-    "require": {}
+  "name": "kain/cmq-sdk",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "kain",
+      "email": "zhangtqx@vip.qq.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "cmq\\sdk\\": "src/"
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.3"
+  }
 }
