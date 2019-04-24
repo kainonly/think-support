@@ -1,6 +1,8 @@
 <?php
 
-namespace cmq\sdk\param;
+namespace cmq\sdk\queue;
+
+use cmq\sdk\Signature;
 
 abstract class Common
 {
@@ -52,6 +54,9 @@ abstract class Common
      */
     public $Token;
 
+    /**
+     * Common constructor.
+     */
     public function __construct()
     {
         $this->Region = config('cmq.default.region');
@@ -59,33 +64,10 @@ abstract class Common
         $this->SignatureMethod = config('cmq.signature_method');
     }
 
-    public function setSignature($signature)
-    {
-        $this->Signature = $signature;
-    }
-
     /**
-     * 获取GET请求参数
-     * @return string
-     */
-    public function getQueryParams()
-    {
-        $operates = [];
-        foreach ($this->getArgs() as $k => $v) {
-            array_push($operates, $k . '=' . $v);
-        }
-        return join('&', $operates);
-    }
-
-    /**
-     * 获取参数
+     * 生成参数
      * @return array
      */
-    public function getBody()
-    {
-        return [];
-    }
-
     private function getArgs()
     {
         $args = array_filter(get_object_vars($this), function ($item) {
@@ -94,4 +76,38 @@ abstract class Common
         ksort($args);
         return $args;
     }
+
+    /**
+     * 签名参数
+     * @return string
+     */
+    private function getSignParams()
+    {
+        $operates = [];
+        $this->Nonce = rand(1, 65535);
+        $this->Timestamp = time();
+        foreach ($this->getArgs() as $k => $v) {
+            array_push($operates, $k . '=' . $v);
+        }
+        return join('&', $operates);
+    }
+
+    private function setSignature()
+    {
+        $sign = new Signature();
+
+    }
+
+    /**
+     * 获取POST请求体
+     * @return array
+     */
+    public function getBody()
+    {
+
+
+        return [];
+    }
+
+
 }
