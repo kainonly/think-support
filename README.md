@@ -1,3 +1,3 @@
-# iris-bit
+# CMQ SDK
 
-Golang Easy Curd Framework
+CMQ 消息队列PHP SDK
