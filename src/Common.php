@@ -81,10 +81,16 @@ abstract class Common
      */
     private function getArgs()
     {
-        $args = array_filter(get_object_vars($this), function ($item) {
-            return !empty($item);
-        });
-        unset($args['instance'], $args['httpClient']);
+        $args = [];
+        $vars = get_object_vars($this);
+        unset($vars['instance'], $vars['httpClient']);
+        foreach ($vars as $key => $value) {
+            if (empty($value)) continue;
+            elseif (is_array($value)) foreach ($value as $k => $v) {
+                $args[$key . '.' . $k] = $v;
+            }
+            else $args[$key] = $value;
+        }
         ksort($args);
         return $args;
     }
@@ -96,8 +102,8 @@ abstract class Common
     private function getSignParams()
     {
         $operates = [];
-        foreach ($this->getArgs() as $k => $v) {
-            array_push($operates, $k . '=' . $v);
+        foreach ($this->getArgs() as $key => $value) {
+            array_push($operates, $key . '=' . $value);
         }
         $signRequest = $this->httpClient->getSignRequest();
         return $signRequest . '?' . join('&', $operates);
