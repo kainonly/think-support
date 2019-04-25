@@ -34,9 +34,10 @@ final class BatchSendMessage extends Common
     public $delaySeconds;
 
     /**
-     * SendMessage constructor.
-     * @param string $queueName
-     * @param array $msgBody
+     * BatchSendMessage constructor.
+     * @param Instance $instance
+     * @param $queueName
+     * @param $msgBody
      * @param int $delaySeconds
      */
     public function __construct(Instance $instance, $queueName, $msgBody, $delaySeconds = 0)

@@ -34,8 +34,9 @@ final class SendMessage extends Common
 
     /**
      * SendMessage constructor.
-     * @param string $queueName
-     * @param mixed $msgBody
+     * @param Instance $instance
+     * @param $queueName
+     * @param $msgBody
      * @param int $delaySeconds
      */
     public function __construct(Instance $instance, $queueName, $msgBody, $delaySeconds = 0)

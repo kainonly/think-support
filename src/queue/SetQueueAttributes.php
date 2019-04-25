@@ -56,6 +56,17 @@ final class SetQueueAttributes extends Common
      */
     public $rewindSeconds;
 
+    /**
+     * SetQueueAttributes constructor.
+     * @param Instance $instance
+     * @param $queueName
+     * @param $maxMsgHeapNum
+     * @param $pollingWaitSeconds
+     * @param $visibilityTimeout
+     * @param $maxMsgSize
+     * @param $msgRetentionSeconds
+     * @param $rewindSeconds
+     */
     public function __construct(Instance $instance,
                                 $queueName,
                                 $maxMsgHeapNum,
