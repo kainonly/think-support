@@ -2,6 +2,10 @@
 
 namespace cmq\sdk\queue;
 
+use cmq\sdk\Common;
+use cmq\sdk\HttpClient;
+use cmq\sdk\Instance;
+
 final class SendMessage extends Common
 {
     /**
@@ -34,9 +38,10 @@ final class SendMessage extends Common
      * @param mixed $msgBody
      * @param int $delaySeconds
      */
-    public function __construct($queueName, $msgBody, $delaySeconds = 0)
+    public function __construct(Instance $instance, $queueName, $msgBody, $delaySeconds = 0)
     {
-        parent::__construct();
+        parent::__construct($instance);
+        $this->httpClient = new HttpClient($this->instance, 'queue');
         $this->queueName = $queueName;
         $this->msgBody = is_array($msgBody) ? json_encode($msgBody) : (string)$msgBody;
         $this->delaySeconds = $delaySeconds;

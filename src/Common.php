@@ -1,12 +1,21 @@
 <?php
 
-namespace cmq\sdk\queue;
-
-use cmq\sdk\HttpClient;
-use cmq\sdk\Signature;
+namespace cmq\sdk;
 
 abstract class Common
 {
+    /**
+     * 实例配置
+     * @var Instance
+     */
+    protected $instance;
+
+    /**
+     * 请求客户端
+     * @var HttpClient
+     */
+    protected $httpClient;
+
     /**
      * 具体操作的指令接口名称
      * @var string
@@ -55,15 +64,15 @@ abstract class Common
      */
     public $Token;
 
-
     /**
      * Common constructor.
      */
-    public function __construct()
+    public function __construct(Instance $instance)
     {
-        $this->Region = config('cmq.default.region');
-        $this->SecretId = config('cmq.secret_id');
-        $this->SignatureMethod = config('cmq.signature_method');
+        $this->instance = $instance;
+        $this->Region = $instance->region;
+        $this->SecretId = $instance->secretId;
+        $this->SignatureMethod = $instance->signatureMethod;
     }
 
     /**
@@ -75,6 +84,7 @@ abstract class Common
         $args = array_filter(get_object_vars($this), function ($item) {
             return !empty($item);
         });
+        unset($args['instance'], $args['httpClient']);
         ksort($args);
         return $args;
     }
@@ -83,13 +93,13 @@ abstract class Common
      * 签名参数
      * @return string
      */
-    private function getSignParams(HttpClient $httpClient)
+    private function getSignParams()
     {
         $operates = [];
         foreach ($this->getArgs() as $k => $v) {
             array_push($operates, $k . '=' . $v);
         }
-        $signRequest = $httpClient->getSignRequest();
+        $signRequest = $this->httpClient->getSignRequest();
         return $signRequest . '?' . join('&', $operates);
     }
 
@@ -98,14 +108,14 @@ abstract class Common
      * @param HttpClient $httpClient
      * @return mixed
      */
-    public function result(HttpClient $httpClient)
+    public function result()
     {
         $msg = null;
         $this->Nonce = rand(1, 65535);
         $this->Timestamp = time();
-        $params = $this->getSignParams($httpClient);
-        $this->Signature = Signature::factory($params);
-        $response = $httpClient->Req($this->getArgs());
+        $params = $this->getSignParams();
+        $this->Signature = Signature::factory($this->instance, $params);
+        $response = $this->httpClient->Req($this->getArgs());
         $body = $response->getBody();
         while (!$body->eof()) $msg = $body->read(1024);
         return json_decode($msg, true);

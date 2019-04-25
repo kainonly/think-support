@@ -36,17 +36,17 @@ final class HttpClient
      */
     private $client;
 
-    public function __construct($type = 'queue')
+    public function __construct(Instance $instance, $type = 'queue')
     {
-        $region = config('cmq.default.region');
-        if (config('cmq.extranet')) {
+        $region = $instance->region;
+        if ($instance->extranet) {
             $this->protocol = 'https://';
             $this->uri = 'cmq-' . $type . '-' . $region . '.api.qcloud.com';
         } else {
             $this->protocol = 'http://';
             $this->uri = 'cmq-' . $type . '-' . $region . '.api.tencentyun.com';
         }
-        $this->path = config('cmq.path');
+        $this->path = $instance->path;
         $this->client = new Client([
             'base_uri' => $this->protocol . $this->uri,
             'timeout' => 2.0,
