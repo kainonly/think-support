@@ -12,7 +12,7 @@ final class CreateQueue extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'CreateQueue';
+    protected $Action = 'CreateQueue';
 
     /**
      * 队列名字

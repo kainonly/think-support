@@ -12,7 +12,7 @@ final class BatchReceiveMessage extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'BatchReceiveMessage';
+    protected $Action = 'BatchReceiveMessage';
 
     /**
      * 队列名字

@@ -12,7 +12,7 @@ final class RewindQueue extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'RewindQueue';
+    protected $Action = 'RewindQueue';
 
     /**
      * 队列名字

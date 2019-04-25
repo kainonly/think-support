@@ -12,7 +12,7 @@ final class ListQueue extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'ListQueue';
+    protected $Action = 'ListQueue';
 
     /**
      * 用于过滤队列列表，后台用模糊匹配的方式来返回符合条件的队列列表

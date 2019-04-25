@@ -12,7 +12,7 @@ final class SendMessage extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'SendMessage';
+    protected $Action = 'SendMessage';
 
     /**
      * 队列名字

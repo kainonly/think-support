@@ -12,7 +12,7 @@ final class ReceiveMessage extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'ReceiveMessage';
+    protected $Action = 'ReceiveMessage';
 
     /**
      * 队列名字
