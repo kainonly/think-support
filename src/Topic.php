@@ -3,6 +3,8 @@
 namespace cmq\sdk;
 
 use cmq\sdk\topic\CreateTopic;
+use cmq\sdk\topic\DeleteTopic;
+use cmq\sdk\topic\GetTopicAttributes;
 use cmq\sdk\topic\ListTopic;
 use cmq\sdk\topic\SetTopicAttributes;
 
@@ -60,4 +62,27 @@ final class Topic
         $action = new ListTopic($this->instance, $searchWord, $offset, $limit);
         return $action->result();
     }
+
+    /**
+     * 获取主题属性
+     * @param string $topicName
+     * @return mixed
+     */
+    public function GetTopicAttributes($topicName)
+    {
+        $action = new GetTopicAttributes($this->instance, $topicName);
+        return $action->result();
+    }
+
+    /**
+     * 删除主题
+     * @param string $topicName
+     * @return mixed
+     */
+    public function DeleteTopic($topicName)
+    {
+        $action = new DeleteTopic($this->instance, $topicName);
+        return $action->result();
+    }
+
 }
