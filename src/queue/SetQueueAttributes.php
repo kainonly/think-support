@@ -6,13 +6,13 @@ use cmq\sdk\Common;
 use cmq\sdk\HttpClient;
 use cmq\sdk\Instance;
 
-final class CreateQueue extends Common
+final class SetQueueAttributes extends Common
 {
     /**
      * 执行名称
      * @var string
      */
-    public $Action = 'CreateQueue';
+    public $Action = 'SetQueueAttributes';
 
     /**
      * 队列名字
