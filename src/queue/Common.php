@@ -7,7 +7,6 @@ use cmq\sdk\Signature;
 
 abstract class Common
 {
-    private $httpClient;
     /**
      * 具体操作的指令接口名称
      * @var string
@@ -95,18 +94,20 @@ abstract class Common
     }
 
     /**
-     * 获取POST请求体
+     * 获取 POST 请求体
      * @param HttpClient $httpClient
      * @return mixed
      */
     public function result(HttpClient $httpClient)
     {
+        $msg = null;
         $this->Nonce = rand(1, 65535);
         $this->Timestamp = time();
         $params = $this->getSignParams($httpClient);
         $this->Signature = Signature::factory($params);
         $response = $httpClient->Req($this->getArgs());
-        return $response->getStatusCode() == 200 ? $response->getBody() : [
-        ];
+        $body = $response->getBody();
+        while (!$body->eof()) $msg = $body->read(1024);
+        return json_decode($msg, true);
     }
 }
