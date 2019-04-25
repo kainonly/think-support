@@ -44,12 +44,12 @@ final class Queue
      * @return mixed
      */
     public function CreateQueue($queueName,
-                                $maxMsgHeapNum = 1000000,
-                                $pollingWaitSeconds = 0,
-                                $visibilityTimeout = 30,
-                                $maxMsgSize = 65536,
-                                $msgRetentionSeconds = 345600,
-                                $rewindSeconds = 0)
+                                $maxMsgHeapNum = null,
+                                $pollingWaitSeconds = null,
+                                $visibilityTimeout = null,
+                                $maxMsgSize = null,
+                                $msgRetentionSeconds = null,
+                                $rewindSeconds = null)
     {
         $action = new CreateQueue(
             $this->instance,
@@ -150,7 +150,7 @@ final class Queue
      * @param int $delaySeconds
      * @return array
      */
-    public function SendMessage($queueName, $msgBody, $delaySeconds = 0)
+    public function SendMessage($queueName, $msgBody, $delaySeconds = null)
     {
         $action = new SendMessage($this->instance, $queueName, $msgBody, $delaySeconds);
         return $action->result();
@@ -163,7 +163,7 @@ final class Queue
      * @param int $delaySeconds
      * @return array
      */
-    public function BatchSendMessage($queueName, $msgBody, $delaySeconds = 0)
+    public function BatchSendMessage($queueName, $msgBody, $delaySeconds = null)
     {
         $action = new BatchSendMessage($this->instance, $queueName, $msgBody, $delaySeconds);
         return $action->result();
