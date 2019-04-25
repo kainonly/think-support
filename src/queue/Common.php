@@ -97,19 +97,16 @@ abstract class Common
     /**
      * 获取POST请求体
      * @param HttpClient $httpClient
-     * @return array
+     * @return mixed
      */
-    public function getBody(HttpClient $httpClient)
+    public function result(HttpClient $httpClient)
     {
         $this->Nonce = rand(1, 65535);
         $this->Timestamp = time();
         $params = $this->getSignParams($httpClient);
-        dump($params);
-//        $this->Signature = Signature::factory($params, $this->SecretKey, $this->SignatureMethod);
-
-
-        return [];
+        $this->Signature = Signature::factory($params);
+        $response = $httpClient->Req($this->getArgs());
+        return $response->getStatusCode() == 200 ? $response->getBody() : [
+        ];
     }
-
-
 }
