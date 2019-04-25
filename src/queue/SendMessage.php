@@ -22,7 +22,7 @@ final class SendMessage extends Common
 
     /**
      * 消息正文。至少1Byte，最大长度受限于设置的队列消息最大长度属性。
-     * @var mixed
+     * @var string
      */
     public $msgBody;
 

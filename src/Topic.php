@@ -2,11 +2,19 @@
 
 namespace cmq\sdk;
 
+use cmq\sdk\topic\BatchPublishMessage;
+use cmq\sdk\topic\ClearSubscriptionFilterTags;
 use cmq\sdk\topic\CreateTopic;
 use cmq\sdk\topic\DeleteTopic;
+use cmq\sdk\topic\GetSubscriptionAttributes;
 use cmq\sdk\topic\GetTopicAttributes;
+use cmq\sdk\topic\ListSubscriptionByTopic;
 use cmq\sdk\topic\ListTopic;
+use cmq\sdk\topic\PublishMessage;
+use cmq\sdk\topic\SetSubscriptionAttributes;
 use cmq\sdk\topic\SetTopicAttributes;
+use cmq\sdk\topic\Subscribe;
+use cmq\sdk\topic\Unsubscribe;
 
 final class Topic
 {
@@ -85,4 +93,155 @@ final class Topic
         return $action->result();
     }
 
+    /**
+     * 发布消息
+     * @param string $topicName
+     * @param mixed $msgBody
+     * @param array $msgTag
+     * @return mixed
+     */
+    public function PublishMessage($topicName, $msgBody, $msgTag)
+    {
+        $action = new PublishMessage($this->instance, $topicName, $msgBody, $msgTag);
+        return $action->result();
+    }
+
+    /**
+     * 批量发布消息
+     * @param string $topicName
+     * @param array $msgBody
+     * @param array $msgTag
+     * @return mixed
+     */
+    public function BatchPublishMessage($topicName, $msgBody, $msgTag)
+    {
+        $action = new BatchPublishMessage($this->instance, $topicName, $msgBody, $msgTag);
+        return $action->result();
+    }
+
+    /**
+     * 创建订阅
+     * @param string $topicName
+     * @param string $subscriptionName
+     * @param string $protocol
+     * @param string $endpoint
+     * @param array $bindingKey
+     * @param string $notifyStrategy
+     * @param string $notifyContentFormat
+     * @param array $filterTag
+     * @return mixed
+     */
+    public function Subscribe($topicName,
+                              $subscriptionName,
+                              $protocol,
+                              $endpoint,
+                              $bindingKey,
+                              $notifyStrategy = null,
+                              $notifyContentFormat = null,
+                              $filterTag = null)
+    {
+        $action = new Subscribe(
+            $this->instance,
+            $topicName,
+            $subscriptionName,
+            $protocol,
+            $endpoint,
+            $notifyStrategy,
+            $notifyContentFormat,
+            $filterTag,
+            $bindingKey
+        );
+        return $action->result();
+    }
+
+    /**
+     * 获取订阅列表
+     * @param string $topicName
+     * @param string $searchWord
+     * @param int $offset
+     * @param int $limit
+     * @return mixed
+     */
+    public function ListSubscriptionByTopic($topicName, $searchWord = null, $offset = null, $limit = null)
+    {
+        $action = new ListSubscriptionByTopic($this->instance, $topicName, $searchWord, $offset, $limit);
+        return $action->result();
+    }
+
+    /**
+     * 修改订阅属性
+     * @param string $topicName
+     * @param string $subscriptionName
+     * @param array $bindingKey
+     * @param string $notifyStrategy
+     * @param string $notifyContentFormat
+     * @param array $filterTag
+     * @return mixed
+     */
+    public function SetSubscriptionAttributes($topicName,
+                                              $subscriptionName,
+                                              $bindingKey,
+                                              $notifyStrategy = null,
+                                              $notifyContentFormat = null,
+                                              $filterTag = null)
+    {
+        $action = new SetSubscriptionAttributes(
+            $this->instance,
+            $topicName,
+            $subscriptionName,
+            $notifyStrategy,
+            $notifyContentFormat,
+            $filterTag,
+            $bindingKey
+        );
+        return $action->result();
+    }
+
+    /**
+     * 删除订阅
+     * @param string $topicName
+     * @param string $subscriptionName
+     * @return mixed
+     */
+    public function Unsubscribe($topicName, $subscriptionName)
+    {
+        $action = new Unsubscribe(
+            $this->instance,
+            $topicName,
+            $subscriptionName
+        );
+        return $action->result();
+    }
+
+    /**
+     * 获取订阅属性
+     * @param string $topicName
+     * @param string $subscriptionName
+     * @return mixed
+     */
+    public function GetSubscriptionAttributes($topicName, $subscriptionName)
+    {
+        $action = new GetSubscriptionAttributes(
+            $this->instance,
+            $topicName,
+            $subscriptionName
+        );
+        return $action->result();
+    }
+
+    /**
+     * 清空订阅标签
+     * @param string $topicName
+     * @param string $subscriptionName
+     * @return mixed
+     */
+    public function ClearSubscriptionFilterTags($topicName, $subscriptionName)
+    {
+        $action = new ClearSubscriptionFilterTags(
+            $this->instance,
+            $topicName,
+            $subscriptionName
+        );
+        return $action->result();
+    }
 }
