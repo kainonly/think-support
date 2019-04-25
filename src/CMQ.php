@@ -3,6 +3,7 @@
 namespace cmq\sdk;
 
 use cmq\sdk\queue\CreateQueue;
+use cmq\sdk\queue\GetQueueAttributes;
 use cmq\sdk\queue\ListQueue;
 use cmq\sdk\queue\SendMessage;
 
@@ -100,6 +101,17 @@ final class CMQ
     public function ListQuery($searchWord = null, $offset = null, $limit = null)
     {
         $action = new ListQueue($this->instance, $searchWord, $offset, $limit);
+        return $action->result();
+    }
+
+    /**
+     * 获取队列属性
+     * @param $queueName
+     * @return mixed
+     */
+    public function GetQueueAttributes($queueName)
+    {
+        $action = new GetQueueAttributes($this->instance, $queueName);
         return $action->result();
     }
 

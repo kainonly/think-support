@@ -15,7 +15,7 @@ final class SendMessage extends Common
     public $Action = 'SendMessage';
 
     /**
-     * 队列名字，在单个地域同一帐号下唯一
+     * 队列名字
      * @var string
      */
     public $queueName;
