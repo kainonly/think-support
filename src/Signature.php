@@ -4,13 +4,9 @@ namespace cmq\sdk;
 
 final class Signature
 {
-    private $Secretkey;
-    private $SignatureMethod;
-
-    public function __construct()
+    public static function factory($param, $key, $method)
     {
-        $this->Secretkey = config('cmq.secret_key');
-        $this->SignatureMethod = config('cmq.signature_method');
+        return '';
     }
 
 }
