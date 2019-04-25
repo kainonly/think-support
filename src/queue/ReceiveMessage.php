@@ -27,10 +27,10 @@ final class ReceiveMessage extends Common
     public $pollingWaitSeconds;
 
     /**
-     * SendMessage constructor.
-     * @param string $queueName
-     * @param mixed $msgBody
-     * @param int $delaySeconds
+     * ReceiveMessage constructor.
+     * @param Instance $instance
+     * @param $queueName
+     * @param $pollingWaitSeconds
      */
     public function __construct(Instance $instance, $queueName, $pollingWaitSeconds)
     {

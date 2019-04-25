@@ -56,6 +56,17 @@ final class CreateQueue extends Common
      */
     public $rewindSeconds;
 
+    /**
+     * CreateQueue constructor.
+     * @param Instance $instance
+     * @param $queueName
+     * @param $maxMsgHeapNum
+     * @param $pollingWaitSeconds
+     * @param $visibilityTimeout
+     * @param $maxMsgSize
+     * @param $msgRetentionSeconds
+     * @param $rewindSeconds
+     */
     public function __construct(Instance $instance,
                                 $queueName,
                                 $maxMsgHeapNum,

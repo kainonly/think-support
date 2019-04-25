@@ -21,7 +21,7 @@ final class GetQueueAttributes extends Common
     public $queueName;
 
     /**
-     * ListQueue constructor.
+     * GetQueueAttributes constructor.
      * @param Instance $instance
      * @param $queueName
      */

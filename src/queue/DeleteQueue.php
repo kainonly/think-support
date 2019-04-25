@@ -21,7 +21,7 @@ final class DeleteQueue extends Common
     public $queueName;
 
     /**
-     * ListQueue constructor.
+     * DeleteQueue constructor.
      * @param Instance $instance
      * @param $queueName
      */
