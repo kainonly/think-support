@@ -35,7 +35,7 @@ final class ListTopic extends Common
     public function __construct(Instance $instance, $searchWord, $offset, $limit)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
         $this->searchWord = $searchWord;
         $this->offset = $offset;
         $this->limit = $limit;

@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use cmq\sdk\CMQ;
 
-class Topic extends TestCase
+class TestTopic extends TestCase
 {
     private $client;
     private $topic = 'test-topic';
@@ -41,6 +41,12 @@ class Topic extends TestCase
     public function testGetTopicAttributes()
     {
         $res = $this->client->GetTopicAttributes($this->topic);
+        $this->assertTrue($res['code'] == 0, $res['message']);
+    }
+
+    public function testDeleteTopic()
+    {
+        $res = $this->client->DeleteTopic($this->topic);
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 }

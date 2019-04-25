@@ -41,7 +41,7 @@ final class PublishMessage extends Common
     public function __construct(Instance $instance, $topicName, $msgBody, $msgTag)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
         $this->msgBody = is_array($msgBody) ? json_encode($msgBody) : (string)$msgBody;
         $this->msgTag = $msgTag;
         $this->topicName = $topicName;

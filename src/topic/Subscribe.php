@@ -73,7 +73,7 @@ final class Subscribe extends Common
                                 $bindingKey)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
         $this->topicName = $topicName;
         $this->subscriptionName = $subscriptionName;
         $this->protocol = $protocol;
