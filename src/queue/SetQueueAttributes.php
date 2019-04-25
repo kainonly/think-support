@@ -12,7 +12,7 @@ final class SetQueueAttributes extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'SetQueueAttributes';
+    protected $Action = 'SetQueueAttributes';
 
     /**
      * 队列名字

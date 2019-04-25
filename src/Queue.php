@@ -5,6 +5,7 @@ namespace cmq\sdk;
 use cmq\sdk\queue\BatchReceiveMessage;
 use cmq\sdk\queue\BatchSendMessage;
 use cmq\sdk\queue\CreateQueue;
+use cmq\sdk\queue\DeleteMessage;
 use cmq\sdk\queue\DeleteQueue;
 use cmq\sdk\queue\GetQueueAttributes;
 use cmq\sdk\queue\ListQueue;
@@ -189,6 +190,18 @@ final class Queue
     public function BatchReceiveMessage($queueName, $numOfMsg = 1, $pollingWaitSeconds = null)
     {
         $action = new BatchReceiveMessage($this->instance, $queueName, $numOfMsg, $pollingWaitSeconds);
+        return $action->result();
+    }
+
+    /**
+     * 删除消息
+     * @param string $queueName
+     * @param string $receiptHandle
+     * @return mixed
+     */
+    public function DeleteMessage($queueName, $receiptHandle)
+    {
+        $action = new DeleteMessage($this->instance, $queueName, $receiptHandle);
         return $action->result();
     }
 }

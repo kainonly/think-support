@@ -12,7 +12,7 @@ final class DeleteQueue extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'DeleteQueue';
+    protected $Action = 'DeleteQueue';
 
     /**
      * 队列名字

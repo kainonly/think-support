@@ -13,7 +13,7 @@ final class BatchSendMessage extends Common
      * 执行名称
      * @var string
      */
-    public $Action = 'BatchSendMessage';
+    protected $Action = 'BatchSendMessage';
 
     /**
      * 队列名字

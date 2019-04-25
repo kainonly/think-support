@@ -6,13 +6,13 @@ use cmq\sdk\Common;
 use cmq\sdk\HttpClient;
 use cmq\sdk\Instance;
 
-final class ReceiveMessage extends Common
+final class DeleteMessage extends Common
 {
     /**
      * 执行名称
      * @var string
      */
-    protected $Action = 'ReceiveMessage';
+    protected $Action = 'DeleteMessage';
 
     /**
      * 队列名字
@@ -21,23 +21,23 @@ final class ReceiveMessage extends Common
     public $queueName;
 
     /**
-     * 本次请求的长轮询等待时间
-     * @var mixed
+     * 上次消费返回唯一的消息句柄
+     * @var string
      */
-    public $pollingWaitSeconds;
+    public $receiptHandle;
 
     /**
-     * SendMessage constructor.
-     * @param string $queueName
-     * @param mixed $msgBody
-     * @param int $delaySeconds
+     * DeleteMessage constructor.
+     * @param Instance $instance
+     * @param $queueName
+     * @param $receiptHandle
      */
-    public function __construct(Instance $instance, $queueName, $pollingWaitSeconds)
+    public function __construct(Instance $instance, $queueName, $receiptHandle)
     {
         parent::__construct($instance);
         $this->httpClient = new HttpClient($this->instance, 'queue');
         $this->queueName = $queueName;
-        $this->pollingWaitSeconds = $pollingWaitSeconds;
+        $this->receiptHandle = $receiptHandle;
         return $this;
     }
 }
