@@ -23,7 +23,7 @@ final class DeleteTopic extends Common
     public function __construct(Instance $instance, $topicName)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
         $this->topicName = $topicName;
         return $this;
     }

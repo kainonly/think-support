@@ -29,7 +29,7 @@ final class SetTopicAttributes extends Common
     public function __construct(Instance $instance, $topicName, $maxMsgSize)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
         $this->topicName = $topicName;
         $this->maxMsgSize = $maxMsgSize;
         return $this;

@@ -41,7 +41,7 @@ final class BatchPublishMessage extends Common
     public function __construct(Instance $instance, $topicName, $msgBody, $msgTag)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
         foreach ($msgBody as $key => $value) {
             $msgBody[$key] = is_array($value) ? json_encode($value) : (string)$value;
         }

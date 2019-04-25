@@ -41,7 +41,7 @@ final class ListSubscriptionByTopic extends Common
     public function __construct(Instance $instance, $topicName, $searchWord, $offset, $limit)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
         $this->topicName = $topicName;
         $this->searchWord = $searchWord;
         $this->offset = $offset;
