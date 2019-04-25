@@ -10,6 +10,11 @@ final class CMQ
 {
     private $instance;
 
+    /**
+     * 创建预设配置 CMQ 客户端
+     * @param string $instance 预设名
+     * @return CMQ
+     */
     public static function Run($instance = 'default')
     {
         return new CMQ(new Instance(
@@ -19,6 +24,28 @@ final class CMQ
             config('cmq.' . $instance . '.secret_id'),
             config('cmq.' . $instance . '.secret_key'),
             config('cmq.' . $instance . '.region')
+        ));
+    }
+
+    /**
+     * 创建自定义配置 CMQ 客户端
+     * @param string $path 请求固定路径
+     * @param string $signature_method 加密方式
+     * @param boolean $extranet 是否为外网
+     * @param string $secret_id SecretId
+     * @param string $secret_key SecretKey
+     * @param string $region 地区
+     * @return CMQ
+     */
+    public static function Create($path, $signature_method, $extranet, $secret_id, $secret_key, $region)
+    {
+        return new CMQ(new Instance(
+            $path,
+            $signature_method,
+            $extranet,
+            $secret_id,
+            $secret_key,
+            $region
         ));
     }
 
