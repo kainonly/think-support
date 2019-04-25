@@ -2,6 +2,7 @@
 
 namespace cmq\sdk;
 
+use cmq\sdk\queue\BatchSendMessage;
 use cmq\sdk\queue\CreateQueue;
 use cmq\sdk\queue\DeleteQueue;
 use cmq\sdk\queue\GetQueueAttributes;
@@ -140,14 +141,27 @@ final class Queue
 
     /**
      * 发送消息队列
-     * @param $queueName
-     * @param $msgBody
+     * @param string $queueName
+     * @param mixed $msgBody
      * @param int $delaySeconds
      * @return array
      */
     public function SendMessage($queueName, $msgBody, $delaySeconds = 0)
     {
         $action = new SendMessage($this->instance, $queueName, $msgBody, $delaySeconds);
+        return $action->result();
+    }
+
+    /**
+     * 批量发送消息
+     * @param string $queueName
+     * @param array $msgBody
+     * @param int $delaySeconds
+     * @return array
+     */
+    public function BatchSendMessage($queueName, $msgBody, $delaySeconds = 0)
+    {
+        $action = new BatchSendMessage($this->instance, $queueName, $msgBody, $delaySeconds);
         return $action->result();
     }
 }
