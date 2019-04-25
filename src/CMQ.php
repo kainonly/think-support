@@ -14,8 +14,9 @@ final class CMQ
      */
     public static function SendMessage($queueName, $msgBody, $delaySeconds = 0)
     {
-        $httpClient = new HttpClient();
+        $httpClient = new HttpClient('queue');
         $action = new SendMessage($queueName, $msgBody, $delaySeconds);
+        $action->getBody($httpClient);
     }
 
 }

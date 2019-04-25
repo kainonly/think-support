@@ -2,10 +2,12 @@
 
 namespace cmq\sdk\queue;
 
+use cmq\sdk\HttpClient;
 use cmq\sdk\Signature;
 
 abstract class Common
 {
+    private $httpClient;
     /**
      * 具体操作的指令接口名称
      * @var string
@@ -54,6 +56,7 @@ abstract class Common
      */
     public $Token;
 
+
     /**
      * Common constructor.
      */
@@ -81,29 +84,28 @@ abstract class Common
      * 签名参数
      * @return string
      */
-    private function getSignParams()
+    private function getSignParams(HttpClient $httpClient)
     {
         $operates = [];
-        $this->Nonce = rand(1, 65535);
-        $this->Timestamp = time();
         foreach ($this->getArgs() as $k => $v) {
             array_push($operates, $k . '=' . $v);
         }
-        return join('&', $operates);
-    }
-
-    private function setSignature()
-    {
-        $sign = new Signature();
-
+        $signRequest = $httpClient->getSignRequest();
+        return $signRequest . '?' . join('&', $operates);
     }
 
     /**
      * 获取POST请求体
+     * @param HttpClient $httpClient
      * @return array
      */
-    public function getBody()
+    public function getBody(HttpClient $httpClient)
     {
+        $this->Nonce = rand(1, 65535);
+        $this->Timestamp = time();
+        $params = $this->getSignParams($httpClient);
+        dump($params);
+//        $this->Signature = Signature::factory($params, $this->SecretKey, $this->SignatureMethod);
 
 
         return [];
