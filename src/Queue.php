@@ -2,11 +2,13 @@
 
 namespace cmq\sdk;
 
+use cmq\sdk\queue\BatchReceiveMessage;
 use cmq\sdk\queue\BatchSendMessage;
 use cmq\sdk\queue\CreateQueue;
 use cmq\sdk\queue\DeleteQueue;
 use cmq\sdk\queue\GetQueueAttributes;
 use cmq\sdk\queue\ListQueue;
+use cmq\sdk\queue\ReceiveMessage;
 use cmq\sdk\queue\RewindQueue;
 use cmq\sdk\queue\SendMessage;
 use cmq\sdk\queue\SetQueueAttributes;
@@ -162,6 +164,31 @@ final class Queue
     public function BatchSendMessage($queueName, $msgBody, $delaySeconds = 0)
     {
         $action = new BatchSendMessage($this->instance, $queueName, $msgBody, $delaySeconds);
+        return $action->result();
+    }
+
+    /**
+     * 消费消息
+     * @param string $queueName
+     * @param int $pollingWaitSeconds
+     * @return mixed
+     */
+    public function ReceiveMessage($queueName, $pollingWaitSeconds = null)
+    {
+        $action = new ReceiveMessage($this->instance, $queueName, $pollingWaitSeconds);
+        return $action->result();
+    }
+
+    /**
+     * 批量消费消息
+     * @param $queueName
+     * @param int $numOfMsg
+     * @param null $pollingWaitSeconds
+     * @return mixed
+     */
+    public function BatchReceiveMessage($queueName, $numOfMsg = 1, $pollingWaitSeconds = null)
+    {
+        $action = new BatchReceiveMessage($this->instance, $queueName, $numOfMsg, $pollingWaitSeconds);
         return $action->result();
     }
 }

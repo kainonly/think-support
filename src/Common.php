@@ -123,7 +123,7 @@ abstract class Common
         $this->Signature = Signature::factory($this->instance, $params);
         $response = $this->httpClient->Req($this->getArgs());
         $body = $response->getBody();
-        while (!$body->eof()) $msg = $body->read(1024);
+        while (!$body->eof()) $msg = $body->read($body->getSize());
         return json_decode($msg, true);
     }
 }
