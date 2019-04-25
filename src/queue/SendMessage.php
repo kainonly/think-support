@@ -4,6 +4,10 @@ namespace cmq\sdk\queue;
 
 final class SendMessage extends Common
 {
+    /**
+     * 执行名称
+     * @var string
+     */
     public $Action = 'SendMessage';
 
     /**
