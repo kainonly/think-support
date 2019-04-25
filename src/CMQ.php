@@ -8,15 +8,16 @@ final class CMQ
 {
     /**
      * SendMessage constructor.
-     * @param string $queueName
-     * @param mixed $msgBody
+     * @param $queueName
+     * @param $msgBody
      * @param int $delaySeconds
+     * @return array
      */
     public static function SendMessage($queueName, $msgBody, $delaySeconds = 0)
     {
         $httpClient = new HttpClient('queue');
         $action = new SendMessage($queueName, $msgBody, $delaySeconds);
-        $action->getBody($httpClient);
+        return $action->result($httpClient);
     }
 
 }
