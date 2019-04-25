@@ -3,6 +3,7 @@
 namespace cmq\sdk;
 
 use cmq\sdk\topic\CreateTopic;
+use cmq\sdk\topic\ListTopic;
 use cmq\sdk\topic\SetTopicAttributes;
 
 final class Topic
@@ -44,6 +45,19 @@ final class Topic
     public function SetTopicAttributes($topicName, $maxMsgSize = null)
     {
         $action = new SetTopicAttributes($this->instance, $topicName, $maxMsgSize);
+        return $action->result();
+    }
+
+    /**
+     * 获取主题列表
+     * @param string $searchWord
+     * @param int $offset
+     * @param int $limit
+     * @return mixed
+     */
+    public function ListTopic($searchWord = null, $offset = null, $limit = null)
+    {
+        $action = new ListTopic($this->instance, $searchWord, $offset, $limit);
         return $action->result();
     }
 }
