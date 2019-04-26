@@ -6,7 +6,7 @@ use cmq\sdk\CMQ;
 class TestQueueMessage extends TestCase
 {
     private $client;
-    private $queue = 'test-queue';
+    private $queue = 'send';
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -15,7 +15,23 @@ class TestQueueMessage extends TestCase
     }
 
     /**
-     * @depends testCreateQueue
+     * 创建队列
+     */
+    public function testCreateQueue()
+    {
+        $res = $this->client->CreateQueue($this->queue,
+            1000000,
+            null,
+            null,
+            null,
+            null,
+            60
+        );
+        $this->assertTrue($res['code'] == 0, $res['message']);
+    }
+
+    /**
+     * 发送消息
      */
     public function testSendMessage()
     {
@@ -26,7 +42,19 @@ class TestQueueMessage extends TestCase
     }
 
     /**
-     * @depends testCreateQueue
+     * 接收消息并删除
+     */
+    public function testReceiveDeleteMessage()
+    {
+        $res1 = $this->client->ReceiveMessage($this->queue);
+        if ($res1['code'] == 0) {
+            $res2 = $this->client->DeleteMessage($this->queue, $res1['receiptHandle']);
+            $this->assertTrue($res2['code'] == 0, $res2['message']);
+        }
+    }
+
+    /**
+     * 批量发送
      */
     public function testBatchSendMessage()
     {
@@ -38,30 +66,17 @@ class TestQueueMessage extends TestCase
     }
 
     /**
-     * @depends testSendMessage
+     * 批量接收并批量删除
      */
-    public function testReceiveMessage()
+    public function testBatchReceiveDeleteMessage()
     {
-        $res = $this->client->ReceiveMessage($this->queue);
-        $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-    /**
-     * @depends testBatchSendMessage
-     */
-    public function testBatchReceiveMessage()
-    {
-        $res = $this->client->BatchReceiveMessage($this->queue);
-        $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-    public function testDeleteMessage()
-    {
-    }
-
-
-    public function testBatchDeleteMessage()
-    {
-
+        $res1 = $this->client->BatchReceiveMessage($this->queue, 16);
+        if ($res1['code'] == 0) {
+            $receiptHandle = array_map(function ($item) {
+                return $item['receiptHandle'];
+            }, $res1['msgInfoList']);
+            $res2 = $this->client->BatchDeleteMessage($this->queue, $receiptHandle);
+            $this->assertTrue($res2['code'] == 0, $res2['message']);
+        }
     }
 }
