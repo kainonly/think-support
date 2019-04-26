@@ -6,14 +6,18 @@ use cmq\sdk\CMQ;
 class TestQueue extends TestCase
 {
     private $client;
-    private $queue = 'test-queue';
+    private $queue;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        $this->queue = 'test';
         $this->client = CMQ::Queue();
     }
 
+    /**
+     * 创建队列
+     */
     public function testCreateQueue()
     {
         $res = $this->client->CreateQueue($this->queue,
@@ -27,6 +31,9 @@ class TestQueue extends TestCase
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
+    /**
+     * 列出队列
+     */
     public function testListQueue()
     {
         $res = $this->client->ListQuery();
@@ -34,6 +41,7 @@ class TestQueue extends TestCase
     }
 
     /**
+     * 获取队列属性
      * @depends testCreateQueue
      */
     public function testGetQueueAttributes()
@@ -43,6 +51,7 @@ class TestQueue extends TestCase
     }
 
     /**
+     * 设置队列属性
      * @depends testCreateQueue
      */
     public function testSetQueueAttributes()
@@ -52,68 +61,12 @@ class TestQueue extends TestCase
     }
 
     /**
+     * 删除队列
      * @depends testCreateQueue
      */
-    public function testRewindQueue()
-    {
-        $res = $this->client->RewindQueue($this->queue, time() + 30);
-        $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-
     public function testDeleteQueue()
     {
-
-    }
-
-    /**
-     * @depends testCreateQueue
-     */
-    public function testSendMessage()
-    {
-        $res = $this->client->SendMessage($this->queue, [
-            'name' => 'kain'
-        ]);
+        $res = $this->client->DeleteQueue($this->queue);
         $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-    /**
-     * @depends testCreateQueue
-     */
-    public function testBatchSendMessage()
-    {
-        $res = $this->client->BatchSendMessage($this->queue, [
-            ['type' => '1'],
-            ['type' => '2']
-        ]);
-        $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-    /**
-     * @depends testSendMessage
-     */
-    public function testReceiveMessage()
-    {
-        $res = $this->client->ReceiveMessage($this->queue);
-        $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-    /**
-     * @depends testBatchSendMessage
-     */
-    public function testBatchReceiveMessage()
-    {
-        $res = $this->client->BatchReceiveMessage($this->queue);
-        $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-    public function testDeleteMessage()
-    {
-    }
-
-
-    public function testBatchDeleteMessage()
-    {
-
     }
 }
