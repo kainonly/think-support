@@ -38,16 +38,17 @@ final class BatchPublishMessage extends Common
      */
     public $routingKey;
 
-    public function __construct(Instance $instance, $topicName, $msgBody, $msgTag)
+    public function __construct(Instance $instance, $topicName, $msgBody, $msgTag, $routingKey)
     {
         parent::__construct($instance);
         $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->topicName = $topicName;
         foreach ($msgBody as $key => $value) {
             $msgBody[$key] = is_array($value) ? json_encode($value) : (string)$value;
         }
         $this->msgBody = $msgBody;
         $this->msgTag = $msgTag;
-        $this->topicName = $topicName;
+        $this->routingKey = $routingKey;
         return $this;
     }
 }

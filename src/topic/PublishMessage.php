@@ -22,7 +22,7 @@ final class PublishMessage extends Common
 
     /**
      * 消息正文
-     * @var string
+     * @var mixed
      */
     public $msgBody;
 
@@ -38,13 +38,14 @@ final class PublishMessage extends Common
      */
     public $routingKey;
 
-    public function __construct(Instance $instance, $topicName, $msgBody, $msgTag)
+    public function __construct(Instance $instance, $topicName, $msgBody, $msgTag, $routingKey)
     {
         parent::__construct($instance);
         $this->httpClient = new HttpClient($this->instance, 'topic');
+        $this->topicName = $topicName;
         $this->msgBody = is_array($msgBody) ? json_encode($msgBody) : (string)$msgBody;
         $this->msgTag = $msgTag;
-        $this->topicName = $topicName;
+        $this->routingKey = $routingKey;
         return $this;
     }
 }

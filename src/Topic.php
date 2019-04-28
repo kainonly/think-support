@@ -98,11 +98,12 @@ final class Topic
      * @param string $topicName
      * @param mixed $msgBody
      * @param array $msgTag
+     * @param string $routingKey
      * @return mixed
      */
-    public function PublishMessage($topicName, $msgBody, $msgTag)
+    public function PublishMessage($topicName, $msgBody, $msgTag = [], $routingKey = null)
     {
-        $action = new PublishMessage($this->instance, $topicName, $msgBody, $msgTag);
+        $action = new PublishMessage($this->instance, $topicName, $msgBody, $msgTag, $routingKey);
         return $action->result();
     }
 
@@ -111,11 +112,12 @@ final class Topic
      * @param string $topicName
      * @param array $msgBody
      * @param array $msgTag
+     * @param string $routingKey
      * @return mixed
      */
-    public function BatchPublishMessage($topicName, $msgBody, $msgTag)
+    public function BatchPublishMessage($topicName, $msgBody, $msgTag = [], $routingKey = null)
     {
-        $action = new BatchPublishMessage($this->instance, $topicName, $msgBody, $msgTag);
+        $action = new BatchPublishMessage($this->instance, $topicName, $msgBody, $msgTag, $routingKey);
         return $action->result();
     }
 
@@ -125,20 +127,20 @@ final class Topic
      * @param string $subscriptionName
      * @param string $protocol
      * @param string $endpoint
-     * @param array $bindingKey
      * @param string $notifyStrategy
      * @param string $notifyContentFormat
      * @param array $filterTag
+     * @param array $bindingKey
      * @return mixed
      */
     public function Subscribe($topicName,
                               $subscriptionName,
                               $protocol,
                               $endpoint,
-                              $bindingKey,
                               $notifyStrategy = null,
                               $notifyContentFormat = null,
-                              $filterTag = null)
+                              $filterTag = null,
+                              $bindingKey = [])
     {
         $action = new Subscribe(
             $this->instance,
