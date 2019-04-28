@@ -1,26 +1,18 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace cmq\testing;
+
 use cmq\sdk\CMQ;
+use Tests\TestCase;
 
 class TestQueueRewind extends TestCase
 {
-    private $client;
-    private $queue;
-
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-        $this->queue = 'beta';
-        $this->client = CMQ::Queue();
-    }
-
     /**
      * 创建队列
      */
     public function testCreateQueue()
     {
-        $res = $this->client->CreateQueue($this->queue,
+        $res = CMQ::Queue()->CreateQueue('beta',
             1000000,
             null,
             null,
@@ -36,7 +28,7 @@ class TestQueueRewind extends TestCase
      */
     public function testSendMessage()
     {
-        $res = $this->client->SendMessage($this->queue, [
+        $res = CMQ::Queue()->SendMessage('beta', [
             'name' => 'kain'
         ]);
         $this->assertTrue($res['code'] == 0, $res['message']);
@@ -47,9 +39,9 @@ class TestQueueRewind extends TestCase
      */
     public function testReceiveAndDeleteMessage()
     {
-        $res1 = $this->client->ReceiveMessage($this->queue);
+        $res1 = CMQ::Queue()->ReceiveMessage('beta');
         if ($res1['code'] == 0) {
-            $res2 = $this->client->DeleteMessage($this->queue, $res1['receiptHandle']);
+            $res2 = CMQ::Queue()->DeleteMessage('beta', $res1['receiptHandle']);
             $this->assertTrue($res2['code'] == 0, $res2['message']);
         }
     }
@@ -59,7 +51,7 @@ class TestQueueRewind extends TestCase
      */
     public function testRewindQueue()
     {
-        $res = $this->client->RewindQueue($this->queue, time() - 3600);
+        $res = CMQ::Queue()->RewindQueue('beta', time() - 1800);
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
