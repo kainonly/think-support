@@ -29,7 +29,7 @@ final class ClearSubscriptionFilterTags extends Common
     public function __construct(Instance $instance, $topicName, $subscriptionName)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
+        $this->httpClient = new HttpClient($this->instance, 'topic');
         $this->topicName = $topicName;
         $this->subscriptionName = $subscriptionName;
         return $this;
