@@ -1,55 +1,54 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace cmq\testing;
+
 use cmq\sdk\CMQ;
+use Tests\TestCase;
 
 class TestTopic extends TestCase
 {
-    private $client;
-    private $topic = 'test-topic';
-
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-        $this->client = CMQ::Topic();
-    }
-
     /**
      * 创建主题
      */
     public function testCreateTopic()
     {
-        $res = $this->client->CreateTopic($this->topic);
+        $res = CMQ::Topic()->CreateTopic('test-topic');
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
     /**
-     * @depends testCreateTopic
+     * 设置主题属性
      */
     public function testSetTopicAttributes()
     {
-        $res = $this->client->SetTopicAttributes($this->topic, 131072);
-        $this->assertTrue($res['code'] == 0, $res['message']);
-    }
-
-    public function testListTopic()
-    {
-        $res = $this->client->ListTopic();
+        $res = CMQ::Topic()->SetTopicAttributes('test-topic', 131072);
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
     /**
-     * @depends testCreateTopic
+     * 获取主题列表
      */
-    public function testGetTopicAttributes()
+    public function testListTopic()
     {
-        $res = $this->client->GetTopicAttributes($this->topic);
+        $res = CMQ::Topic()->ListTopic();
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
+    /**
+     * 获取主题属性
+     */
+    public function testGetTopicAttributes()
+    {
+        $res = CMQ::Topic()->GetTopicAttributes('test-topic');
+        $this->assertTrue($res['code'] == 0, $res['message']);
+    }
+
+    /**
+     * 删除主题
+     */
     public function testDeleteTopic()
     {
-        $res = $this->client->DeleteTopic($this->topic);
+        $res = CMQ::Topic()->DeleteTopic('test-topic');
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 }
