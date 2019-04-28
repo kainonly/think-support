@@ -1,5 +1,6 @@
 {
   "name": "kain/cmq-sdk",
+  "description": "CMQ 消息队列PHP SDK",
   "license": "MIT",
   "authors": [
     {
@@ -10,6 +11,11 @@
   "autoload": {
     "psr-4": {
       "cmq\\sdk\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "cmq\\testing\\": "testing/"
     }
   },
   "require": {

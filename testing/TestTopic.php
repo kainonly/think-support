@@ -14,6 +14,9 @@ class TestTopic extends TestCase
         $this->client = CMQ::Topic();
     }
 
+    /**
+     * 创建主题
+     */
     public function testCreateTopic()
     {
         $res = $this->client->CreateTopic($this->topic);
