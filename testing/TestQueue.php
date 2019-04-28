@@ -1,26 +1,18 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace cmq\testing;
+
 use cmq\sdk\CMQ;
+use Tests\TestCase;
 
 class TestQueue extends TestCase
 {
-    private $client;
-    private $queue;
-
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-        $this->queue = 'test';
-        $this->client = CMQ::Queue();
-    }
-
     /**
      * 创建队列
      */
     public function testCreateQueue()
     {
-        $res = $this->client->CreateQueue($this->queue,
+        $res = CMQ::Queue()->CreateQueue('test',
             1000000,
             null,
             null,
@@ -36,37 +28,34 @@ class TestQueue extends TestCase
      */
     public function testListQueue()
     {
-        $res = $this->client->ListQuery();
+        $res = CMQ::Queue()->ListQuery();
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
     /**
      * 获取队列属性
-     * @depends testCreateQueue
      */
     public function testGetQueueAttributes()
     {
-        $res = $this->client->GetQueueAttributes($this->queue);
+        $res = CMQ::Queue()->GetQueueAttributes('test');
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
     /**
      * 设置队列属性
-     * @depends testCreateQueue
      */
     public function testSetQueueAttributes()
     {
-        $res = $this->client->SetQueueAttributes($this->queue, 5000000);
+        $res = CMQ::Queue()->SetQueueAttributes('test', 5000000);
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 
     /**
      * 删除队列
-     * @depends testCreateQueue
      */
     public function testDeleteQueue()
     {
-        $res = $this->client->DeleteQueue($this->queue);
+        $res = CMQ::Queue()->DeleteQueue('test');
         $this->assertTrue($res['code'] == 0, $res['message']);
     }
 }
