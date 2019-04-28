@@ -1,0 +1,13 @@
+{
+  "name": "cmq-sdk",
+  "description": "CMQ 消息队列PHP SDK",
+  "scripts": {
+    "start": "docsify serve docs"
+  },
+  "author": "kain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kainonly/cmq-sdk/issues"
+  },
+  "homepage": "https://github.com/kainonly/cmq-sdk#readme"
+}
