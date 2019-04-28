@@ -1,25 +1,18 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace cmq\testing;
+
 use cmq\sdk\CMQ;
+use Tests\TestCase;
 
 class TestQueueMessage extends TestCase
 {
-    private $client;
-    private $queue = 'send';
-
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-        $this->client = CMQ::Queue();
-    }
-
     /**
      * 创建队列
      */
     public function testCreateQueue()
     {
-        $res = $this->client->CreateQueue($this->queue,
+        $res = CMQ::Queue()->CreateQueue('send',
             1000000,
             null,
             null,
@@ -35,7 +28,7 @@ class TestQueueMessage extends TestCase
      */
     public function testSendMessage()
     {
-        $res = $this->client->SendMessage($this->queue, [
+        $res = CMQ::Queue()->SendMessage('send', [
             'name' => 'kain'
         ]);
         $this->assertTrue($res['code'] == 0, $res['message']);
@@ -46,9 +39,9 @@ class TestQueueMessage extends TestCase
      */
     public function testReceiveDeleteMessage()
     {
-        $res1 = $this->client->ReceiveMessage($this->queue);
+        $res1 = CMQ::Queue()->ReceiveMessage('send');
         if ($res1['code'] == 0) {
-            $res2 = $this->client->DeleteMessage($this->queue, $res1['receiptHandle']);
+            $res2 = CMQ::Queue()->DeleteMessage('send', $res1['receiptHandle']);
             $this->assertTrue($res2['code'] == 0, $res2['message']);
         }
     }
@@ -58,7 +51,7 @@ class TestQueueMessage extends TestCase
      */
     public function testBatchSendMessage()
     {
-        $res = $this->client->BatchSendMessage($this->queue, [
+        $res = CMQ::Queue()->BatchSendMessage('send', [
             ['type' => '1'],
             ['type' => '2']
         ]);
@@ -70,12 +63,12 @@ class TestQueueMessage extends TestCase
      */
     public function testBatchReceiveDeleteMessage()
     {
-        $res1 = $this->client->BatchReceiveMessage($this->queue, 16);
+        $res1 = CMQ::Queue()->BatchReceiveMessage('send', 16);
         if ($res1['code'] == 0) {
             $receiptHandle = array_map(function ($item) {
                 return $item['receiptHandle'];
             }, $res1['msgInfoList']);
-            $res2 = $this->client->BatchDeleteMessage($this->queue, $receiptHandle);
+            $res2 = CMQ::Queue()->BatchDeleteMessage('send', $receiptHandle);
             $this->assertTrue($res2['code'] == 0, $res2['message']);
         }
     }
