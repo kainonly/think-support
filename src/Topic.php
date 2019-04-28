@@ -139,7 +139,7 @@ final class Topic
                               $endpoint,
                               $notifyStrategy = null,
                               $notifyContentFormat = null,
-                              $filterTag = null,
+                              $filterTag = [],
                               $bindingKey = [])
     {
         $action = new Subscribe(
@@ -174,18 +174,18 @@ final class Topic
      * 修改订阅属性
      * @param string $topicName
      * @param string $subscriptionName
-     * @param array $bindingKey
      * @param string $notifyStrategy
      * @param string $notifyContentFormat
      * @param array $filterTag
+     * @param array $bindingKey
      * @return mixed
      */
     public function SetSubscriptionAttributes($topicName,
                                               $subscriptionName,
-                                              $bindingKey,
                                               $notifyStrategy = null,
                                               $notifyContentFormat = null,
-                                              $filterTag = null)
+                                              $filterTag = [],
+                                              $bindingKey = [])
     {
         $action = new SetSubscriptionAttributes(
             $this->instance,
