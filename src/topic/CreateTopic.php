@@ -35,7 +35,7 @@ final class CreateTopic extends Common
     public function __construct(Instance $instance, $topicName, $maxMsgSize, $filterType)
     {
         parent::__construct($instance);
-        $this->httpClient = new HttpClient($this->instance, 'TestTopic');
+        $this->httpClient = new HttpClient($this->instance, 'topic');
         $this->topicName = $topicName;
         $this->maxMsgSize = $maxMsgSize;
         $this->filterType = $filterType;
