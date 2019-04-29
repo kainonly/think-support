@@ -1,6 +1,6 @@
 {
   "name": "kain/cmq-sdk",
-  "description": "CMQ 消息队列PHP SDK",
+  "description": "支持 Laravel/Lumen 与 ThinkPHP5 的 CMQ 消息队列 PHP SDK",
   "license": "MIT",
   "authors": [
     {
