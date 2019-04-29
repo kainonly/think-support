@@ -2,6 +2,12 @@
 
 CMQ 消息队列 PHP SDK，[接口文档详情](https://cloud.tencent.com/document/api/406/5852)
 
+### 安装
+
+```shell
+composer require kain/cmq-sdk
+```
+
 ### 队列模型
 
 ##### 队列相关接口
