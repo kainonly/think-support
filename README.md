@@ -1,3 +1,0 @@
-# CMQ SDK
-
-CMQ 消息队列PHP SDK
