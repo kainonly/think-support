@@ -1,6 +1,11 @@
 # CMQ SDK
 
-支持 Laravel 与 ThinkPHP 的 CMQ 消息队列 PHP SDK，[CMQ 接口文档详情](https://cloud.tencent.com/document/api/406/5852)
+支持 Laravel/Lumen 与 ThinkPHP5 的 CMQ 消息队列 PHP SDK，[CMQ 接口文档详情](https://cloud.tencent.com/document/api/406/5852)
+
+[![Latest Stable Version](https://poser.pugx.org/kain/cmq-sdk/v/stable)](https://packagist.org/packages/kain/cmq-sdk)
+[![Latest Unstable Version](https://poser.pugx.org/kain/cmq-sdk/v/unstable.svg)](https://packagist.org/packages/kain/cmq-sdk)
+[![Total Downloads](https://poser.pugx.org/kain/cmq-sdk/d/total.svg)](https://packagist.org/packages/kain/cmq-sdk)
+[![License](https://poser.pugx.org/kain/cmq-sdk/license)](https://packagist.org/packages/kain/cmq-sdk)
 
 > Lumen 请手动添加 `$app->configure('cmq')` 至 `bootstrap/app.php`
 

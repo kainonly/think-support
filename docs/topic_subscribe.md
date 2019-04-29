@@ -13,6 +13,20 @@
 - **filterTag** `array` 消息标签（用于消息过滤)
 - **bindingKey** `array` 订阅接收消息的过滤策略
 
+```php
+CMQ::Topic()->Subscribe(
+    'test-topic',
+    'test',
+    'queue',
+    'normal',
+    null,
+    null,
+    [
+        'mytag'
+    ]
+);
+```
+
 ##### ListSubscriptionByTopic(...$args)
 
 获取订阅列表
@@ -21,6 +35,10 @@
 - **searchWord** `string` 用于过滤订阅列表，后台用模糊匹配的方式来返回符合条件的订阅列表
 - **offset** `int` 分页时本页获取订阅列表的起始位置
 - **limit** `int` 分页时本页获取订阅的个数
+
+```php
+CMQ::Topic()->ListSubscriptionByTopic('test-topic');
+```
 
 ##### SetSubscriptionAttributes(...$args)
 
@@ -33,12 +51,24 @@
 - **filterTag** `array` 消息标签（用于消息过滤)
 - **bindingKey** `array` 订阅接收消息的过滤策略
 
+```php
+CMQ::Topic()->SetSubscriptionAttributes(
+    'test-topic',
+    'test',
+    'BACKOFF_RETRY'
+);
+```
+
 ##### Unsubscribe(...$args)
 
 删除订阅
 
 - **topicName** `string` 主题名字，在单个地域同一帐号下唯一
 - **subscriptionName** `string` 订阅名字，在单个地域同一帐号的同一主题下唯一
+
+```php
+CMQ::Topic()->Unsubscribe('test-topic', 'test');
+```
 
 ##### GetSubscriptionAttributes(...$args)
 
@@ -47,6 +77,10 @@
 - **topicName** `string` 主题名字，在单个地域同一帐号下唯一
 - **subscriptionName** `string` 订阅名字，在单个地域同一帐号的同一主题下唯一
 
+```php
+CMQ::Topic()->GetSubscriptionAttributes('test-topic', 'test');
+```
+
 ##### ClearSubscriptionFilterTags(...$args)
 
 清空订阅标签
@@ -54,5 +88,8 @@
 - **topicName** `string` 主题名字，在单个地域同一帐号下唯一
 - **subscriptionName** `string` 订阅名字，在单个地域同一帐号的同一主题下唯一
 
+```php
+CMQ::Topic()->ClearSubscriptionFilterTags('test-topic', 'test');
+```
 
 
