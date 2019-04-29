@@ -1,16 +1,18 @@
 # CMQ SDK
 
-CMQ 消息队列 PHP SDK，[接口文档详情](https://cloud.tencent.com/document/api/406/5852)
+支持 Laravel 与 ThinkPHP 的 CMQ 消息队列 PHP SDK，[CMQ 接口文档详情](https://cloud.tencent.com/document/api/406/5852)
 
-### 安装
+> Lumen 请手动添加 `$app->configure('cmq')` 至 `bootstrap/app.php`
+
+#### 安装
 
 ```shell
 composer require kain/cmq-sdk
 ```
 
-### 队列模型
+#### 队列模型
 
-##### 队列相关接口
+###### 队列相关接口
 
 | 接口功能     | Action ID          | 功能描述                                   |
 | ------------ | ------------------ | ------------------------------------------ |
@@ -20,7 +22,7 @@ composer require kain/cmq-sdk
 | 修改队列属性 | SetQueueAttributes | 用于修改消息队列的属性。                   |
 | 删除队列     | DeleteQueue        | 用于删除一个已创建的队列。                 |
 
-##### 消息相关接口
+###### 消息相关接口
 
 | 接口功能     | Action ID           | 功能描述                         |
 | ------------ | ------------------- | -------------------------------- |
@@ -31,9 +33,9 @@ composer require kain/cmq-sdk
 | 删除消息     | DeleteMessage       | 用于删除已经被消费过的消息。     |
 | 批量删除消息 | BatchDeleteMessage  | 用于批量删除已经被消费过的消息。 |
 
-### 主题模型
+#### 主题模型
 
-##### 主题相关接口
+###### 主题相关接口
 
 | 接口功能     | Action ID          | 功能描述                                   |
 | ------------ | ------------------ | ------------------------------------------ |
@@ -43,14 +45,14 @@ composer require kain/cmq-sdk
 | 获取主题属性 | GetTopicAttributes | 用于获取某个已创建主题的属性。             |
 | 删除主题     | DeleteTopic        | 用于删除一个已创建的主题。                 |
 
-##### 消息相关接口
+###### 消息相关接口
 
 | 接口功能     | Action ID           | 功能描述                     |
 | ------------ | ------------------- | ---------------------------- |
 | 发布消息     | PublishMessage      | 用于发布一条消息到指定主题。 |
 | 批量发布消息 | BatchPublishMessage | 用于发布批量消息到指定主题。 |
 
-##### 订阅相关接口
+###### 订阅相关接口
 
 | 接口功能     | Action ID                 | 功能描述                                   |
 | ------------ | ------------------------- | ------------------------------------------ |
