@@ -12,6 +12,17 @@
 - **msgRetentionSeconds** `int` 消息保留周期
 - **rewindSeconds** `int` 队列是否开启回溯消息能力
 
+```php
+CMQ::Queue()->CreateQueue('test',
+    1000000,
+    null,
+    null,
+    null,
+    null,
+    60
+);
+```
+
 ##### ListQuery(...$args)
 
 获取队列列表
@@ -20,11 +31,19 @@
 - **offset** `int` 分页时本页获取队列列表的起始位置
 - **limit** `int` 分页时本页获取队列的个数
 
+```php
+CMQ::Queue()->ListQuery();
+```
+
 ##### GetQueueAttributes(...$args)
 
 获取队列属性
 
 - **queueName** `string` 队列名字，在单个地域同一帐号下唯一
+
+```php
+CMQ::Queue()->GetQueueAttributes('test');
+```
 
 ##### SetQueueAttributes(...$args)
 
@@ -38,11 +57,19 @@
 - **msgRetentionSeconds** `int` 消息保留周期
 - **rewindSeconds** `int` 队列是否开启回溯消息能力
 
+```php
+CMQ::Queue()->SetQueueAttributes('test', 5000000);
+```
+
 ##### DeleteQueue(...$args)
 
 删除队列
 
 - **queueName** `string` 队列名字，在单个地域同一帐号下唯一
+
+```php
+CMQ::Queue()->DeleteQueue('test');
+```
 
 ##### RewindQueue(...$args)
 
@@ -50,3 +77,8 @@
 
 - **queueName** `string` 队列名字，在单个地域同一帐号下唯一
 - **startConsumeTime** `int(unixtime)` 设定该时间，则（Batch）receiveMessage 接口，会按照生产消息的先后顺序消费该时间戳以后的消息
+
+```php
+// 需要在消息删除后执行
+CMQ::Queue()->RewindQueue('test', time() - 1800);
+```
