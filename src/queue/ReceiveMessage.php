@@ -38,6 +38,5 @@ final class ReceiveMessage extends Common
         $this->httpClient = new HttpClient($this->instance, 'queue');
         $this->queueName = $queueName;
         $this->pollingWaitSeconds = $pollingWaitSeconds;
-        return $this;
     }
 }

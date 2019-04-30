@@ -25,6 +25,5 @@ final class GetTopicAttributes extends Common
         parent::__construct($instance);
         $this->httpClient = new HttpClient($this->instance, 'topic');
         $this->topicName = $topicName;
-        return $this;
     }
 }

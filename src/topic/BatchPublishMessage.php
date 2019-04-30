@@ -49,6 +49,5 @@ final class BatchPublishMessage extends Common
         $this->msgBody = $msgBody;
         $this->msgTag = $msgTag;
         $this->routingKey = $routingKey;
-        return $this;
     }
 }

@@ -39,6 +39,5 @@ final class CreateTopic extends Common
         $this->topicName = $topicName;
         $this->maxMsgSize = $maxMsgSize;
         $this->filterType = $filterType;
-        return $this;
     }
 }

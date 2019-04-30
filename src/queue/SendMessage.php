@@ -46,6 +46,5 @@ final class SendMessage extends Common
         $this->queueName = $queueName;
         $this->msgBody = is_array($msgBody) ? json_encode($msgBody) : (string)$msgBody;
         $this->delaySeconds = $delaySeconds;
-        return $this;
     }
 }

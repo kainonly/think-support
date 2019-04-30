@@ -32,6 +32,5 @@ final class Unsubscribe extends Common
         $this->httpClient = new HttpClient($this->instance, 'topic');
         $this->topicName = $topicName;
         $this->subscriptionName = $subscriptionName;
-        return $this;
     }
 }

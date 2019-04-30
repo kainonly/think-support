@@ -40,6 +40,5 @@ final class BatchDeleteMessage extends Common
         $this->httpClient = new HttpClient($this->instance, 'queue');
         $this->queueName = $queueName;
         $this->receiptHandle = $receiptHandle;
-        return $this;
     }
 }

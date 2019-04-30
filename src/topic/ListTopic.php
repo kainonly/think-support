@@ -39,6 +39,5 @@ final class ListTopic extends Common
         $this->searchWord = $searchWord;
         $this->offset = $offset;
         $this->limit = $limit;
-        return $this;
     }
 }
