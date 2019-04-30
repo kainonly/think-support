@@ -85,6 +85,5 @@ final class SetQueueAttributes extends Common
         $this->maxMsgSize = $maxMsgSize;
         $this->msgRetentionSeconds = $msgRetentionSeconds;
         $this->rewindSeconds = $rewindSeconds;
-        return $this;
     }
 }

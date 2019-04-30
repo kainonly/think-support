@@ -46,6 +46,5 @@ final class BatchReceiveMessage extends Common
         $this->queueName = $queueName;
         $this->numOfMsg = $numOfMsg;
         $this->pollingWaitSeconds = $pollingWaitSeconds;
-        return $this;
     }
 }

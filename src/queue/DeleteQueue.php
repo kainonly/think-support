@@ -30,6 +30,5 @@ final class DeleteQueue extends Common
         parent::__construct($instance);
         $this->httpClient = new HttpClient($this->instance, 'queue');
         $this->queueName = $queueName;
-        return $this;
     }
 }

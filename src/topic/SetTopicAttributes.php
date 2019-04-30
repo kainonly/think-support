@@ -32,6 +32,5 @@ final class SetTopicAttributes extends Common
         $this->httpClient = new HttpClient($this->instance, 'topic');
         $this->topicName = $topicName;
         $this->maxMsgSize = $maxMsgSize;
-        return $this;
     }
 }

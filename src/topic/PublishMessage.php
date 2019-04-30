@@ -46,6 +46,5 @@ final class PublishMessage extends Common
         $this->msgBody = is_array($msgBody) ? json_encode($msgBody) : (string)$msgBody;
         $this->msgTag = $msgTag;
         $this->routingKey = $routingKey;
-        return $this;
     }
 }

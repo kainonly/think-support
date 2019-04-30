@@ -50,6 +50,5 @@ final class BatchSendMessage extends Common
         }
         $this->msgBody = $msgBody;
         $this->delaySeconds = $delaySeconds;
-        return $this;
     }
 }

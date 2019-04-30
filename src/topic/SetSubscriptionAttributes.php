@@ -66,6 +66,5 @@ final class SetSubscriptionAttributes extends Common
         $this->notifyContentFormat = $notifyContentFormat;
         $this->filterTag = $filterTag;
         $this->bindingKey = $bindingKey;
-        return $this;
     }
 }

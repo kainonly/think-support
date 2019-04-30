@@ -38,6 +38,5 @@ final class RewindQueue extends Common
         $this->httpClient = new HttpClient($this->instance, 'queue');
         $this->queueName = $queueName;
         $this->startConsumeTime = $startConsumeTime;
-        return $this;
     }
 }
