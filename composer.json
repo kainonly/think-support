@@ -1,0 +1,27 @@
+{
+  "name": "kain/think-support",
+  "description": "ThinkPHP 依赖与功能支持库",
+  "require": {
+    "php": ">=7.2.0",
+    "topthink/framework": "^6.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "think\\support\\": "src/"
+    }
+  },
+  "suggest": {
+    "kain/think-extra": "ThinkPHP 工具扩展库，让它具备类似 Laravel 的常用功能"
+  },
+  "authors": [
+    {
+      "name": "kain",
+      "email": "zhangtqx@vip.qq.com"
+    }
+  ],
+  "support": {
+    "docs": "https://think-bit.kain.net.cn",
+    "email": "zhangtqx@vip.qq.com"
+  },
+  "license": "MIT"
+}
