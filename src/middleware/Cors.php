@@ -5,6 +5,7 @@ declare (strict_types=1);
 namespace think\support\middleware;
 
 use think\facade\Config;
+use think\facade\Console;
 use think\Request;
 
 /**
