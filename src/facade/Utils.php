@@ -4,18 +4,19 @@ namespace think\support\facade;
 
 use Ramsey\Uuid\UuidInterface;
 use Stringy\Stringy;
+use think\extra\contract\UtilsInterface;
 use think\Facade;
 
 /**
- * Class Str
+ * Class Utils
  * @package think\support\facade
- * @method static Stringy stringy($str = '', $encoding = null)
+ * @method static Stringy stringy($str = '', string $encoding = null)
  * @method static UuidInterface uuid()
  */
-final class Ext extends Facade
+final class Utils extends Facade
 {
     protected static function getFacadeClass()
     {
-        return 'ext';
+        return UtilsInterface::class;
     }
 }
