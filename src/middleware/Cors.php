@@ -24,12 +24,12 @@ class Cors
             'expose_headers' => 'array',
             'allow_headers' => 'array',
             'max_age' => 'integer'
-        ], $options);
+        ]);
 
-        if ($validate->check($options)) {
+        if (!$validate->check($options)) {
             return json([
                 'error' => 1,
-                'msg' => 'Cors setting parameter is incorrect'
+                'msg' => $validate->getError()
             ]);
         }
 
@@ -44,8 +44,8 @@ class Cors
             }
         }
 
-        if (!empty($options['allow_credentials'])) {
-            header('Access-Control-Allow-Credentials:' . (string)$options['allow_credentials']);
+        if (!empty($options['allow_credentials']) && $options['allow_credentials'] == true) {
+            header('Access-Control-Allow-Credentials:true');
         }
 
         if (!empty($options['expose_headers'])) {

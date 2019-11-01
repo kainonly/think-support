@@ -15,6 +15,10 @@ class FilterPostRequest
 {
     public function handle(Request $request, \Closure $next)
     {
+        if ($request->isOptions()) {
+            return json([], 200);
+        }
+
         return $request->isPost() ? $next($request) : json([
             'error' => 1,
             'msg' => 'this method is not supported'
