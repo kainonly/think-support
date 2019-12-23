@@ -12,7 +12,7 @@ use think\Facade;
  * @method static \Lcobucci\JWT\Token get(string $tokenString)
  * @method static \stdClass verify(string $scene, string $tokenString)
  */
-final class Token extends Facade
+class Token extends Facade
 {
     protected static function getFacadeClass()
     {

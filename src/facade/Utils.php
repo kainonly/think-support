@@ -13,7 +13,7 @@ use think\Facade;
  * @method static Stringy stringy($str = '', string $encoding = null)
  * @method static UuidInterface uuid()
  */
-final class Utils extends Facade
+class Utils extends Facade
 {
     protected static function getFacadeClass()
     {

@@ -9,7 +9,7 @@ use think\Facade;
  * @method static string put(string $name)
  * @package think\support\facade
  */
-final class Oss extends Facade
+class Oss extends Facade
 {
     protected static function getFacadeClass()
     {

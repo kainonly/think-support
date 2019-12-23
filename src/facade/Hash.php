@@ -11,7 +11,7 @@ use think\Facade;
  * @method static false|string create(string $password, array $options = [])
  * @method static bool check(string $password, string $hashPassword)
  */
-final class Hash extends Facade
+class Hash extends Facade
 {
     protected static function getFacadeClass()
     {

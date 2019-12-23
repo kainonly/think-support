@@ -179,7 +179,7 @@ use think\Facade;
  * @method static MultiExecTransaction|array transaction(\Closure $closure)
  * @method static PubSubConsumer|null pubSubLoop(\Closure $closure)
  */
-final class Redis extends Facade
+class Redis extends Facade
 {
     protected static function getFacadeClass()
     {
