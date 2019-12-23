@@ -11,7 +11,7 @@ use think\Facade;
  * @method static void set(string $abstract, mixed $value)
  * @method static mixed get(string $abstract)
  */
-final class Context extends Facade
+class Context extends Facade
 {
     protected static function getFacadeClass()
     {

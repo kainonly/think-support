@@ -11,7 +11,7 @@ use think\Facade;
  * @method static string encrypt(string|array $context)
  * @method static string|array decrypt(string $ciphertext, bool $auto_conver = true)
  */
-final class Cipher extends Facade
+class Cipher extends Facade
 {
     protected static function getFacadeClass()
     {
