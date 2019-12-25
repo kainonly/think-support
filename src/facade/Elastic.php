@@ -2,14 +2,13 @@
 
 namespace think\support\facade;
 
-use Elasticsearch\Client;
 use think\Facade;
+use Elasticsearch\Client;
 
 /**
  * Class Elastic
  * @package think\support\facade
- * @method static Client client() ElasticSearch 客户端
- * @method static Client create(string $label) 创建 ElasticSearch 客户端
+ * @method static Client client(string $label = 'default') 创建 ElasticSearch 客户端
  */
 class Elastic extends Facade
 {
