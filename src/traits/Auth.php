@@ -15,7 +15,7 @@ trait Auth
      * Set RefreshToken Expires
      * @return int
      */
-    protected function __refreshTokenExpires()
+    protected function __refreshTokenExpires(): int
     {
         return 604800;
     }
@@ -26,7 +26,7 @@ trait Auth
      * @param array $symbol
      * @return array
      */
-    protected function __create(string $scene, array $symbol = [])
+    protected function __create(string $scene, array $symbol = []): array
     {
         $jti = Utils::uuid()->toString();
         $ack = Str::random();
@@ -55,10 +55,10 @@ trait Auth
 
     /**
      * Auth Verify
-     * @param $scene
+     * @param string $scene
      * @return array
      */
-    protected function __verify($scene)
+    protected function __verify(string $scene): array
     {
         try {
             if (!Cookie::has($scene . '_token')) {
@@ -117,7 +117,7 @@ trait Auth
      * @param string $scene
      * @return array
      */
-    protected function __destory(string $scene)
+    protected function __destory(string $scene): array
     {
         if (Cookie::has($scene . '_token')) {
             $tokenString = Cookie::get($scene . '_token');

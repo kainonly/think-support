@@ -11,7 +11,7 @@
     }
   },
   "suggest": {
-    "kain/think-extra": "ThinkPHP 工具扩展库，让它具备类似 Laravel 的常用功能"
+    "kain/think-extra": "ThinkPHP 工具扩展库"
   },
   "authors": [
     {

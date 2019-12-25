@@ -1,6 +1,6 @@
 # Think Support
 
-Think Bit 依赖与功能支持库，[Think Bit](https://think-bit.kainonly.com) 辅助 ThinkPHP 快速集成 RESTFul API 的工具集
+Think Bit 依赖与功能支持库
 
 ![Packagist Version](https://img.shields.io/packagist/v/kain/think-support.svg?style=flat-square)
 ![Packagist](https://img.shields.io/packagist/dt/kain/think-support.svg?color=blue&style=flat-square)

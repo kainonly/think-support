@@ -1,19 +1,21 @@
 <?php
-
 declare (strict_types=1);
 
 namespace think\support\middleware;
 
+use Closure;
+use Exception;
+use think\Request;
+use think\Response;
 use think\facade\Cookie;
 use think\redis\library\RefreshToken;
-use think\Request;
 use think\support\facade\Context;
 use think\support\facade\Token;
 
 /**
  * 授权认证验证中间件
- * Class JsonResponse
- * @package think\bit\middleware
+ * Class AuthVerify
+ * @package think\support\middleware
  */
 abstract class AuthVerify
 {
@@ -25,10 +27,10 @@ abstract class AuthVerify
 
     /**
      * @param Request $request
-     * @param \Closure $next
-     * @return mixed|\think\response\Json
+     * @param Closure $next
+     * @return Response
      */
-    public function handle(Request $request, \Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         try {
             if (!Cookie::has($this->scene . '_token')) {
@@ -71,7 +73,7 @@ abstract class AuthVerify
             }
             Context::set('auth', $symbol);
             return $next($request);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return json([
                 'error' => 1,
                 'msg' => $e->getMessage()
