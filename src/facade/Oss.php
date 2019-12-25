@@ -3,11 +3,14 @@
 namespace think\support\facade;
 
 use think\Facade;
+use OSS\OssClient;
+
 
 /**
  * Class Oss
- * @method static string put(string $name)
  * @package think\support\facade
+ * @method static string put(string $name) 上传至对象存储
+ * @method static OssClient getClient() 获取对象存储客户端
  */
 class Oss extends Facade
 {
