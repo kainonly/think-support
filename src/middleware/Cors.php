@@ -1,12 +1,12 @@
 <?php
-
 declare (strict_types=1);
 
 namespace think\support\middleware;
 
-use think\facade\Config;
-use think\facade\Console;
+use Closure;
 use think\Request;
+use think\facade\Config;
+use think\Response;
 
 /**
  * 跨域设置中间件
@@ -15,7 +15,12 @@ use think\Request;
  */
 class Cors
 {
-    public function handle(Request $request, \Closure $next)
+    /**
+     * @param Request $request
+     * @param Closure $next
+     * @return Response
+     */
+    public function handle(Request $request, Closure $next): Response
     {
         $options = Config::get('cors');
         $validate = validate([

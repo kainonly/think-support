@@ -3,6 +3,7 @@ declare (strict_types=1);
 
 namespace think\support\middleware;
 
+use Closure;
 use think\Request;
 use think\Response;
 
@@ -13,7 +14,12 @@ use think\Response;
  */
 class JsonResponse
 {
-    public function handle(Request $request, \Closure $next)
+    /**
+     * @param Request $request
+     * @param Closure $next
+     * @return Response
+     */
+    public function handle(Request $request, Closure $next): Response
     {
         /**
          * @var $response Response
