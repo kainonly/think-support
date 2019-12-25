@@ -3,13 +3,6 @@
 namespace think\support\facade;
 
 use Predis\Client;
-use Predis\Command\CommandInterface;
-use Predis\Configuration\OptionsInterface;
-use Predis\Connection\ConnectionInterface;
-use Predis\Pipeline\Pipeline;
-use Predis\Profile\ProfileInterface;
-use Predis\PubSub\Consumer as PubSubConsumer;
-use Predis\Transaction\MultiExec as MultiExecTransaction;
 use think\Facade;
 
 /**
