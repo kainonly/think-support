@@ -10,9 +10,9 @@ use think\amqp\contract\AMQPInterface;
 /**
  * Class AMQP
  * @package think\support\facade
- * @method static AMQPClient client(string $name)
- * @method static void channel(Closure $closure, array $options = [])
- * @method static void channeltx(Closure $closure, array $options = [])
+ * @method static AMQPClient client(string $name = 'default')
+ * @method static void channel(Closure $closure, string $name = 'default', array $options = [])
+ * @method static void channeltx(Closure $closure, string $name = 'default', array $options = [])
  */
 class AMQP extends Facade
 {
