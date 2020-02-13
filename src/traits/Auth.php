@@ -3,6 +3,7 @@ declare (strict_types=1);
 
 namespace think\support\traits;
 
+use Exception;
 use think\facade\Cookie;
 use think\helper\Str;
 use think\redis\library\RefreshToken;
@@ -15,7 +16,7 @@ trait Auth
      * Set RefreshToken Expires
      * @return int
      */
-    protected function __refreshTokenExpires(): int
+    protected function refreshTokenExpires(): int
     {
         return 604800;
     }
@@ -26,11 +27,11 @@ trait Auth
      * @param array $symbol
      * @return array
      */
-    protected function __create(string $scene, array $symbol = []): array
+    protected function create(string $scene, array $symbol = []): array
     {
         $jti = Utils::uuid()->toString();
         $ack = Str::random();
-        $result = RefreshToken::create()->factory($jti, $ack, $this->__refreshTokenExpires());
+        $result = RefreshToken::create()->factory($jti, $ack, $this->refreshTokenExpires());
         if (!$result) {
             return [
                 'error' => 1,
@@ -58,7 +59,7 @@ trait Auth
      * @param string $scene
      * @return array
      */
-    protected function __verify(string $scene): array
+    protected function authVerify(string $scene): array
     {
         try {
             if (!Cookie::has($scene . '_token')) {
@@ -104,7 +105,7 @@ trait Auth
                 'error' => 0,
                 'msg' => 'ok'
             ];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'error' => 1,
                 'msg' => $e->getMessage()
@@ -117,7 +118,7 @@ trait Auth
      * @param string $scene
      * @return array
      */
-    protected function __destory(string $scene): array
+    protected function destory(string $scene): array
     {
         if (Cookie::has($scene . '_token')) {
             $tokenString = Cookie::get($scene . '_token');
