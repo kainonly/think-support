@@ -8,7 +8,6 @@ use think\facade\Cookie;
 use think\helper\Str;
 use think\redis\library\RefreshToken;
 use think\support\facade\Token;
-use think\support\facade\Utils;
 
 trait Auth
 {
@@ -26,10 +25,11 @@ trait Auth
      * @param string $scene
      * @param array $symbol
      * @return array
+     * @throws Exception
      */
     protected function create(string $scene, array $symbol = []): array
     {
-        $jti = Utils::uuid()->toString();
+        $jti = uuid()->toString();
         $ack = Str::random();
         $result = RefreshToken::create()->factory($jti, $ack, $this->refreshTokenExpires());
         if (!$result) {
