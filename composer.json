@@ -2,8 +2,11 @@
   "name": "kain/think-support",
   "description": "ThinkPHP 依赖与功能支持库",
   "require": {
-    "php": ">=7.2.0",
+    "php": ">=7.4.0",
     "topthink/framework": "^6.0.0"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
   },
   "autoload": {
     "psr-4": {
