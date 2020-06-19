@@ -71,11 +71,12 @@ trait Auth
 
             $tokenString = Cookie::get($scene . '_token');
             $result = Token::verify($scene, $tokenString);
+            /**
+             * @var $token \Lcobucci\JWT\Token
+             */
+            $token = $result->token;
+            $symbol = (array)$token->getClaim('symbol');
             if ($result->expired) {
-                /**
-                 * @var $token \Lcobucci\JWT\Token
-                 */
-                $token = $result->token;
                 $jti = $token->getClaim('jti');
                 $ack = $token->getClaim('ack');
                 $verify = RefreshToken::create()->verify($jti, $ack);
@@ -85,7 +86,6 @@ trait Auth
                         'msg' => 'refresh token verification expired'
                     ];
                 }
-                $symbol = (array)$token->getClaim('symbol');
                 $preTokenString = (string)Token::create(
                     $scene,
                     $jti,
@@ -101,16 +101,26 @@ trait Auth
                 Cookie::set($scene . '_token', $preTokenString);
             }
 
-            return [
-                'error' => 0,
-                'msg' => 'ok'
-            ];
+            return $this->authHook($symbol);
         } catch (Exception $e) {
             return [
                 'error' => 1,
                 'msg' => $e->getMessage()
             ];
         }
+    }
+
+    /**
+     * Auth Hook
+     * @param array $symbol
+     * @return array
+     */
+    protected function authHook(array $symbol): array
+    {
+        return [
+            'error' => 0,
+            'msg' => 'ok'
+        ];
     }
 
     /**
