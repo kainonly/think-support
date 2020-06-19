@@ -5,6 +5,7 @@ namespace think\support\middleware;
 
 use Closure;
 use Exception;
+use stdClass;
 use think\Request;
 use think\Response;
 use think\facade\Cookie;
@@ -24,6 +25,11 @@ abstract class AuthVerify
      * @var string
      */
     protected $scene = 'default';
+
+    protected $hookResult = [
+        'error' => 1,
+        'msg' => 'hook failed'
+    ];
 
     /**
      * @param Request $request
@@ -71,6 +77,10 @@ abstract class AuthVerify
                 }
                 Cookie::set($this->scene . '_token', $preTokenString);
             }
+            $result = $this->hook($symbol);
+            if (!$result) {
+                return json($this->hookResult);
+            }
             Context::set('auth', $symbol);
             return $next($request);
         } catch (Exception $e) {
@@ -79,5 +89,14 @@ abstract class AuthVerify
                 'msg' => $e->getMessage()
             ], 400);
         }
+    }
+
+    /**
+     * @param stdClass $symbol
+     * @return bool
+     */
+    protected function hook(stdClass $symbol): bool
+    {
+        return true;
     }
 }
