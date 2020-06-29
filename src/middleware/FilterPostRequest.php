@@ -22,7 +22,7 @@ class FilterPostRequest
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->isOptions()) {
-            return json([], 200);
+            return response(null, 204);
         }
 
         return $request->isPost() ? $next($request) : json([
