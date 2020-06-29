@@ -1,4 +1,5 @@
 <?php
+declare (strict_types=1);
 
 namespace think\support\facade;
 
@@ -14,7 +15,7 @@ use think\Facade;
  */
 class Obs extends Facade
 {
-    protected static function getFacadeClass()
+    protected static function getFacadeClass(): string
     {
         return 'obs';
     }

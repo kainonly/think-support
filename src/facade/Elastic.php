@@ -1,4 +1,5 @@
 <?php
+declare (strict_types=1);
 
 namespace think\support\facade;
 
@@ -12,7 +13,7 @@ use Elasticsearch\Client;
  */
 class Elastic extends Facade
 {
-    protected static function getFacadeClass()
+    protected static function getFacadeClass(): string
     {
         return 'elastic';
     }
