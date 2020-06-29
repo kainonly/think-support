@@ -1,4 +1,5 @@
 <?php
+declare (strict_types=1);
 
 namespace think\support\facade;
 
@@ -16,7 +17,7 @@ use think\amqp\contract\AMQPInterface;
  */
 class AMQP extends Facade
 {
-    protected static function getFacadeClass()
+    protected static function getFacadeClass(): string
     {
         return AMQPInterface::class;
     }

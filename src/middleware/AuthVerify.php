@@ -24,9 +24,13 @@ abstract class AuthVerify
      * 场景
      * @var string
      */
-    protected $scene = 'default';
+    protected string $scene = 'default';
 
-    protected $hookResult = [
+    /**
+     * 返回定义
+     * @var array
+     */
+    protected array $hookResult = [
         'error' => 1,
         'msg' => 'hook failed'
     ];

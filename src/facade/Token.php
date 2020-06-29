@@ -1,4 +1,5 @@
 <?php
+declare (strict_types=1);
 
 namespace think\support\facade;
 
@@ -15,7 +16,7 @@ use think\extra\contract\TokenInterface;
  */
 class Token extends Facade
 {
-    protected static function getFacadeClass()
+    protected static function getFacadeClass(): string
     {
         return TokenInterface::class;
     }
