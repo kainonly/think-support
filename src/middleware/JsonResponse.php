@@ -22,10 +22,13 @@ class JsonResponse
     public function handle(Request $request, Closure $next): Response
     {
         /**
-         * @var $response Response
+         * @var Response $response
          */
         $response = $next($request);
         $data = $response->getData();
-        return (is_array($data) || is_object($data)) ? json($data) : $response;
+        if (is_array($data) || is_object($data)) {
+            return json($data);
+        }
+        return $response;
     }
 }
