@@ -5,6 +5,7 @@ namespace think\support\middleware;
 
 use Closure;
 use Exception;
+use Lcobucci\JWT\Token\Plain;
 use stdClass;
 use think\Request;
 use think\Response;
@@ -52,14 +53,13 @@ abstract class AuthVerify
 
             $tokenString = Cookie::get($this->scene . '_token');
             $result = Token::verify($this->scene, $tokenString);
-            /**
-             * @var $token \Lcobucci\JWT\Token
-             */
+            assert($result->token instanceof Plain);
             $token = $result->token;
-            $symbol = $token->getClaim('symbol');
+            $claims = $token->claims();
+            $symbol = $claims->get('symbol');
             if ($result->expired) {
-                $jti = $token->getClaim('jti');
-                $ack = $token->getClaim('ack');
+                $jti = $claims->get('jti');
+                $ack = $claims->get('ack');
                 $verify = RefreshToken::create()->verify($jti, $ack);
                 if (!$verify) {
                     return json([
@@ -67,25 +67,14 @@ abstract class AuthVerify
                         'msg' => 'refresh token verification expired'
                     ], 401);
                 }
-                $preTokenString = (string)Token::create(
-                    $this->scene,
-                    $jti,
-                    $ack,
-                    (array)$symbol
-                );
-                if (empty($preTokenString)) {
-                    return json([
-                        'error' => 1,
-                        'msg' => 'create token failed'
-                    ]);
-                }
-                Cookie::set($this->scene . '_token', $preTokenString);
+                $newToken = Token::create($this->scene, $jti, $ack, $symbol);
+                Cookie::set($this->scene . '_token', $newToken->toString());
             }
-            $result = $this->hook($symbol);
+            $result = $this->hook((object)$symbol);
             if (!$result) {
                 return json($this->hookResult);
             }
-            Context::set('auth', $symbol);
+            Context::set('auth', (object)$symbol);
             return $next($request);
         } catch (Exception $e) {
             return json([

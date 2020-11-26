@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace think\support\traits;
 
 use Exception;
+use Lcobucci\JWT\Token\Plain;
 use think\facade\Cookie;
 use think\helper\Str;
 use think\redis\library\RefreshToken;
@@ -38,15 +39,8 @@ trait Auth
                 'msg' => 'refresh token set failed'
             ];
         }
-
-        $tokenString = (string)Token::create($scene, $jti, $ack, $symbol);
-        if (!$tokenString) {
-            return [
-                'error' => 1,
-                'msg' => 'create token failed'
-            ];
-        }
-        Cookie::set($scene . '_token', $tokenString);
+        $token = Token::create($scene, $jti, $ack, $symbol);
+        Cookie::set($scene . '_token', $token->toString());
         return [
             'error' => 0,
             'msg' => 'ok'
@@ -68,17 +62,15 @@ trait Auth
                     'msg' => 'refresh token not exists'
                 ];
             }
-
             $tokenString = Cookie::get($scene . '_token');
             $result = Token::verify($scene, $tokenString);
-            /**
-             * @var $token \Lcobucci\JWT\Token
-             */
+            assert($result->token instanceof Plain);
             $token = $result->token;
-            $symbol = (array)$token->getClaim('symbol');
-            if ($result->expired) {
-                $jti = $token->getClaim('jti');
-                $ack = $token->getClaim('ack');
+            $claims = $token->claims();
+            $symbol = (array)$claims->get('symbol');
+            if ($result->expired === true) {
+                $jti = $claims->get('jti');
+                $ack = $claims->get('ack');
                 $verify = RefreshToken::create()->verify($jti, $ack);
                 if (!$verify) {
                     return [
@@ -86,21 +78,9 @@ trait Auth
                         'msg' => 'refresh token verification expired'
                     ];
                 }
-                $preTokenString = (string)Token::create(
-                    $scene,
-                    $jti,
-                    $ack,
-                    $symbol
-                );
-                if (!$preTokenString) {
-                    return [
-                        'error' => 1,
-                        'msg' => 'create token failed'
-                    ];
-                }
-                Cookie::set($scene . '_token', $preTokenString);
+                $newToken = Token::create($scene, $jti, $ack, $symbol);
+                Cookie::set($scene . '_token', $newToken->toString());
             }
-
             return $this->authHook($symbol);
         } catch (Exception $e) {
             return [
@@ -133,9 +113,10 @@ trait Auth
         if (Cookie::has($scene . '_token')) {
             $tokenString = Cookie::get($scene . '_token');
             $token = Token::get($tokenString);
+            $claims = $token->claims();
             RefreshToken::create()->clear(
-                $token->getClaim('jti'),
-                $token->getClaim('ack')
+                $claims->get('jti'),
+                $claims->get('ack')
             );
             Cookie::delete($scene . '_token');
         }
