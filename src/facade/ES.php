@@ -7,14 +7,14 @@ use think\Facade;
 use Elasticsearch\Client;
 
 /**
- * Class Elastic
+ * Class Es
  * @package think\support\facade
  * @method static Client client(string $label = 'default') 创建 ElasticSearch 客户端
  */
-class Elastic extends Facade
+class ES extends Facade
 {
     protected static function getFacadeClass(): string
     {
-        return 'elastic';
+        return 'elasticsearch';
     }
 }

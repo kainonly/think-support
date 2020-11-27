@@ -16,9 +16,9 @@ use think\Response;
 class Cors
 {
     /**
-     * @var array|null
+     * @var array
      */
-    private ?array $options;
+    private array $option;
 
     /**
      * Cors constructor.
@@ -26,7 +26,7 @@ class Cors
      */
     public function __construct(Config $config)
     {
-        $this->options = $config->get('cors');
+        $this->option = $config->get('cors') ?? [];
     }
 
     /**
@@ -41,25 +41,25 @@ class Cors
          */
         $response = $next($request);
         $header = [];
-        if (!empty($this->options['allow_origin']) && is_array($this->options['allow_origin'])) {
-            if (in_array('*', $this->options['allow_origin'], true)) {
+        if (!empty($this->options['allow_origin']) && is_array($this->option['allow_origin'])) {
+            if (in_array('*', $this->option['allow_origin'], true)) {
                 $header['Access-Control-Allow-Origin'] = '*';
             }
-            if (in_array($request->header('origin'), $this->options['allow_origin'], true)) {
+            if (in_array($request->header('origin'), $this->option['allow_origin'], true)) {
                 $header['Access-Control-Allow-Origin'] = $request->header('origin');
             }
         }
-        if (!empty($this->options['allow_credentials']) && $this->options['allow_credentials'] === true) {
+        if (!empty($this->options['allow_credentials']) && $this->option['allow_credentials'] === true) {
             $header['Access-Control-Allow-Credentials'] = 'true';
         }
-        if (!empty($this->options['expose_headers']) && is_array($this->options['expose_headers'])) {
-            $header['Access-Control-Expose-Headers'] = implode(',', $this->options['expose_headers']);
+        if (!empty($this->options['expose_headers']) && is_array($this->option['expose_headers'])) {
+            $header['Access-Control-Expose-Headers'] = implode(',', $this->option['expose_headers']);
         }
-        if (!empty($this->options['allow_headers']) && is_array($this->options['allow_headers'])) {
-            $header['Access-Control-Allow-Headers'] = implode(',', $this->options['allow_headers']);
+        if (!empty($this->options['allow_headers']) && is_array($this->option['allow_headers'])) {
+            $header['Access-Control-Allow-Headers'] = implode(',', $this->option['allow_headers']);
         }
-        if (!empty($this->options['max_age']) && is_int($this->options['max_age'])) {
-            $header['Access-Control-Max-Age'] = $this->options['max_age'];
+        if (!empty($this->options['max_age']) && is_int($this->option['max_age'])) {
+            $header['Access-Control-Max-Age'] = $this->option['max_age'];
         }
         return $response->header($header);
     }
