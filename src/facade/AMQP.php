@@ -6,7 +6,7 @@ namespace think\support\facade;
 use Closure;
 use think\Facade;
 use simplify\amqp\AMQPClient;
-use think\amqp\contract\AMQPInterface;
+use think\amqp\AMQPInterface;
 
 /**
  * Class AMQP
