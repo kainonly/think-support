@@ -10,9 +10,10 @@ use OSS\OssClient;
 /**
  * Class Oss
  * @package think\support\facade
- * @method static string put(string $name) 上传至对象存储
- * @method static OssClient getClient(bool $extranet = false) 获取对象存储客户端
- * @method static array generatePostPresigned(array $conditions, int $expired = 600) 生成客户端上传 OSS 对象存储签名
+ * @method static string put(string $name) 上传对象
+ * @method static OssClient getClient(bool $extranet = false) 获取客户端
+ * @method static void delete(array $keys) 删除对象
+ * @method static array generatePostPresigned(array $conditions, int $expired = 600) 生成签名
  */
 class Oss extends Facade
 {
