@@ -31,7 +31,7 @@ abstract class AuthVerify
      * 返回定义
      * @var array
      */
-    protected array $hookResult = [
+    protected array $hookError = [
         'error' => 1,
         'msg' => 'hook failed'
     ];
@@ -56,10 +56,10 @@ abstract class AuthVerify
             assert($result->token instanceof Plain);
             $token = $result->token;
             $claims = $token->claims();
+            $jti = $claims->get('jti');
+            $ack = $claims->get('ack');
             $symbol = $claims->get('symbol');
             if ($result->expired) {
-                $jti = $claims->get('jti');
-                $ack = $claims->get('ack');
                 $verify = RefreshToken::create()->verify($jti, $ack);
                 if (!$verify) {
                     return json([
@@ -70,11 +70,11 @@ abstract class AuthVerify
                 $newToken = Token::create($this->scene, $jti, $ack, $symbol);
                 Cookie::set($this->scene . '_token', $newToken->toString());
             }
-            $result = $this->hook((object)$symbol);
-            if (!$result) {
-                return json($this->hookResult);
+            if (!$this->hook((object)$symbol)) {
+                return json($this->hookError);
             }
             Context::set('auth', (object)$symbol);
+            RefreshToken::create()->renewal($jti, 3600);
             return $next($request);
         } catch (Exception $e) {
             return json([

@@ -13,16 +13,7 @@ use think\support\facade\Token;
 trait Auth
 {
     /**
-     * Set RefreshToken Expires
-     * @return int
-     */
-    protected function refreshTokenExpires(): int
-    {
-        return 604800;
-    }
-
-    /**
-     * Create Cookie Auth
+     * 创建授权令牌
      * @param string $scene
      * @param array $symbol
      * @return array
@@ -32,7 +23,7 @@ trait Auth
     {
         $jti = uuid()->toString();
         $ack = Str::random();
-        $result = RefreshToken::create()->factory($jti, $ack, $this->refreshTokenExpires());
+        $result = RefreshToken::create()->factory($jti, $ack, 3600);
         if (!$result) {
             return [
                 'error' => 1,
@@ -49,7 +40,7 @@ trait Auth
 
 
     /**
-     * Auth Verify
+     * 验证授权令牌
      * @param string $scene
      * @return array
      */
@@ -67,12 +58,11 @@ trait Auth
             assert($result->token instanceof Plain);
             $token = $result->token;
             $claims = $token->claims();
-            $symbol = (array)$claims->get('symbol');
+            $jti = $claims->get('jti');
+            $ack = $claims->get('ack');
+            $symbol = $claims->get('symbol');
             if ($result->expired === true) {
-                $jti = $claims->get('jti');
-                $ack = $claims->get('ack');
-                $verify = RefreshToken::create()->verify($jti, $ack);
-                if (!$verify) {
+                if (!RefreshToken::create()->verify($jti, $ack)) {
                     return [
                         'error' => 1,
                         'msg' => 'refresh token verification expired'
@@ -81,6 +71,7 @@ trait Auth
                 $newToken = Token::create($scene, $jti, $ack, $symbol);
                 Cookie::set($scene . '_token', $newToken->toString());
             }
+            RefreshToken::create()->renewal($jti, 3600);
             return $this->authHook($symbol);
         } catch (Exception $e) {
             return [
