@@ -46,39 +46,32 @@ trait Auth
      */
     protected function authVerify(string $scene): array
     {
-        try {
-            if (!Cookie::has($scene . '_token')) {
-                return [
-                    'error' => 1,
-                    'msg' => 'refresh token not exists'
-                ];
-            }
-            $tokenString = Cookie::get($scene . '_token');
-            $result = Token::verify($scene, $tokenString);
-            assert($result->token instanceof Plain);
-            $token = $result->token;
-            $claims = $token->claims();
-            $jti = $claims->get('jti');
-            $ack = $claims->get('ack');
-            $symbol = $claims->get('symbol');
-            if ($result->expired === true) {
-                if (!RefreshToken::create()->verify($jti, $ack)) {
-                    return [
-                        'error' => 1,
-                        'msg' => 'refresh token verification expired'
-                    ];
-                }
-                $newToken = Token::create($scene, $jti, $ack, $symbol);
-                Cookie::set($scene . '_token', $newToken->toString());
-            }
-            RefreshToken::create()->renewal($jti, 3600);
-            return $this->authHook($symbol);
-        } catch (Exception $e) {
+        if (!Cookie::has($scene . '_token')) {
             return [
                 'error' => 1,
-                'msg' => $e->getMessage()
+                'msg' => 'refresh token not exists'
             ];
         }
+        $tokenString = Cookie::get($scene . '_token');
+        $result = Token::verify($scene, $tokenString);
+        assert($result->token instanceof Plain);
+        $token = $result->token;
+        $claims = $token->claims();
+        $jti = $claims->get('jti');
+        $ack = $claims->get('ack');
+        $symbol = $claims->get('symbol');
+        if ($result->expired === true) {
+            if (!RefreshToken::create()->verify($jti, $ack)) {
+                return [
+                    'error' => 1,
+                    'msg' => 'refresh token verification expired'
+                ];
+            }
+            $newToken = Token::create($scene, $jti, $ack, $symbol);
+            Cookie::set($scene . '_token', $newToken->toString());
+        }
+        RefreshToken::create()->renewal($jti, 3600);
+        return $this->authHook($symbol);
     }
 
     /**
