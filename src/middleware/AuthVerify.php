@@ -56,9 +56,9 @@ abstract class AuthVerify
             assert($result->token instanceof Plain);
             $token = $result->token;
             $claims = $token->claims();
+            $symbol = $claims->get('symbol');
             $jti = $claims->get('jti');
             $ack = $claims->get('ack');
-            $symbol = $claims->get('symbol');
             if ($result->expired) {
                 $verify = RefreshToken::create()->verify($jti, $ack);
                 if (!$verify) {
