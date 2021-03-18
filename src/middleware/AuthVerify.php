@@ -28,6 +28,12 @@ abstract class AuthVerify
     protected string $scene = 'default';
 
     /**
+     * 续约时长
+     * @var int
+     */
+    protected int $renewal = 3600;
+
+    /**
      * 返回定义
      * @var array
      */
@@ -74,7 +80,7 @@ abstract class AuthVerify
                 return json($this->hookError);
             }
             Context::set('auth', (object)$symbol);
-            RefreshToken::create()->renewal($jti, 3600);
+            RefreshToken::create()->renewal($jti, $this->renewal);
             return $next($request);
         } catch (Exception $e) {
             return json([
